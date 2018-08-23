@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="roms\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GBDasm.Core\GBDasm.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="roms\Link%27s Awakening DX.gbc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="roms\Link%27s Awakening.gb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GBDasm", "GBDasm\GBDasm.csproj", "{4E597FAC-926E-4E39-A355-9EA36B3C921E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GBDasm.Core", "GBDasm.Core\GBDasm.Core.csproj", "{4E597FAC-926E-4E39-A355-9EA36B3C921E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GBDasm.ConsoleApp", "GBDasm.ConsoleApp\GBDasm.ConsoleApp.csproj", "{10D57EAA-F1CF-47EA-B2E0-56BBB1E1C008}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GBDasm.Core.Test", "GBDasm.Core.Test\GBDasm.Core.Test.csproj", "{4624637B-D66B-4870-9010-A4C13AAB6CFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{4E597FAC-926E-4E39-A355-9EA36B3C921E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E597FAC-926E-4E39-A355-9EA36B3C921E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E597FAC-926E-4E39-A355-9EA36B3C921E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10D57EAA-F1CF-47EA-B2E0-56BBB1E1C008}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10D57EAA-F1CF-47EA-B2E0-56BBB1E1C008}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10D57EAA-F1CF-47EA-B2E0-56BBB1E1C008}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10D57EAA-F1CF-47EA-B2E0-56BBB1E1C008}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4624637B-D66B-4870-9010-A4C13AAB6CFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4624637B-D66B-4870-9010-A4C13AAB6CFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4624637B-D66B-4870-9010-A4C13AAB6CFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4624637B-D66B-4870-9010-A4C13AAB6CFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
