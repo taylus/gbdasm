@@ -7,6 +7,7 @@ namespace GBDasm.Core
     /// Transforms byte sequences into GBZ80 instructions.
     /// </summary>
     /// <see cref="http://goldencrystal.free.fr/GBZ80Opcodes.pdf"/>
+    /// <see cref="https://rednex.github.io/rgbds/gbz80.7.html"/>
     public class Decoder
     {
         public string Decode(params byte[] data)
