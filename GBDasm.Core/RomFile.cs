@@ -5,14 +5,27 @@ namespace GBDasm.Core
 {
     public class RomFile
     {
-        private readonly byte[] data;
+        /// <summary>
+        /// Raw bytes of ROM file. Contains both instructions and data.
+        /// </summary>
+        public byte[] Data { get; private set; }
+
+        /// <summary>
+        /// Header section of the ROM containing metadata about the game.
+        /// </summary>
+        public ArraySegment<byte> Header => new ArraySegment<byte>(Data, 0x104, 0x4C);
+
+        /// <summary>
+        /// Returns true if the given address falls within the ROM header, false otherwise.
+        /// </summary>
+        public bool IsInHeader(int address) => (address >= Header.Offset && address < (Header.Offset + Header.Count));
 
         /// <summary>
         /// Loads a ROM from the file at the given path.
         /// </summary>
         public RomFile(string path)
         {
-            data = File.ReadAllBytes(path);
+            Data = File.ReadAllBytes(path);
         }
 
         /// <summary>
@@ -20,7 +33,7 @@ namespace GBDasm.Core
         /// </summary>
         public void HexDump(int bytesPerLine = 16, int? stopAfterBytes = null)
         {
-            HexDump(data, bytesPerLine, stopAfterBytes);
+            HexDump(Data, bytesPerLine, stopAfterBytes);
         }
 
         /// <summary>

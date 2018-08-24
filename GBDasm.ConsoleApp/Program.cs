@@ -1,4 +1,6 @@
-﻿using GBDasm.Core;
+﻿using System;
+using System.Diagnostics;
+using GBDasm.Core;
 
 namespace GBDasm.ConsoleApp
 {
@@ -6,8 +8,18 @@ namespace GBDasm.ConsoleApp
     {
         public static void Main(string[] args)
         {
-            var rom = new RomFile(@"roms\Link's Awakening.gb");
-            rom.HexDump(bytesPerLine: 16, stopAfterBytes: 256);
+            //TODO: make command-line args
+            const string inFile = @"roms\Link's Awakening.gb";
+            const string outFile = @"Link's Awakening.asm";
+
+            var rom = new RomFile(inFile);
+            var dasm = new Disassembler(rom, new Decoder());
+
+            Console.WriteLine($"Disassembling \"{inFile}\"...");
+            dasm.Disassemble(outFile);
+
+            Console.WriteLine($"Wrote \"{outFile}\"");
+            Process.Start(new ProcessStartInfo() { FileName = outFile, UseShellExecute = true });
         }
     }
 }
