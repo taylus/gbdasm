@@ -25,7 +25,7 @@ namespace GBDasm.Core
                 if (RomFile.IsInHeader(i))
                 {
                     //don't decode the ROM header as instructions
-                    sb.AppendLine($"{i:x4}: db ${i:x2}");
+                    sb.AppendLine($"{i:x4}: db ${RomFile.Data[i]:x2}");
                 }
                 else
                 { 
