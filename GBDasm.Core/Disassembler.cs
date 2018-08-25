@@ -15,34 +15,32 @@ namespace GBDasm.Core
             Decoder = decoder;
         }
 
+        /// <summary>
+        /// Produce RGBDS-compatible assembly of the ROM file.
+        /// </summary>
         public string Disassemble()
         {
-            //return Decoder.Decode(RomFile.Data); // can't just do this! decoder treats data sections as instructions and may see invalid opcodes
-
             var sb = new StringBuilder();
-            for(int i = 0; i < RomFile.Data.Length; i++)
+            for (int bankNumber = 0; bankNumber < RomFile.NumberOfBanks; bankNumber++)
             {
-                if (RomFile.IsInHeader(i))
+                sb.AppendLine($"SECTION \"rom{bankNumber}\", ROM{(bankNumber == 0 ? '0' : 'X')}");
+                for (int addressWithinBank = 0; addressWithinBank < RomFile.BankSize; addressWithinBank++)
                 {
-                    //don't decode the ROM header as instructions
-                    sb.AppendLine($"{i:x4}: db ${RomFile.Data[i]:x2}");
-                }
-                else
-                { 
-                    var seg = new ArraySegment<byte>(RomFile.Data, i, RomFile.Data.Length - i);
-                    try
+                    int absoluteAddress = (bankNumber * RomFile.BankSize) + addressWithinBank;
+                    if (RomFile.IsInHeader(absoluteAddress))
                     {
-                        sb.AppendLine($"{i:x4}: {Decoder.Decode(seg)}");
+                        //don't decode the ROM header as instructions
+                        sb.AppendLine($"db ${RomFile.Data[absoluteAddress]:x2} ;{absoluteAddress:x4}");
                     }
-                    catch (UndefinedOpcodeException ex)
+                    else
                     {
-                        sb.AppendLine($"{i:x4}: <invalid opcode ${ex.OpCode:x2}>");
+                        var data = new ArraySegment<byte>(RomFile.Data, absoluteAddress, RomFile.BankSize - addressWithinBank);
+                        string dasm = Decoder.Decode(data, out int instructionLength);
+                        sb.AppendLine($"{dasm} ;{absoluteAddress:x4}");
+                        addressWithinBank += instructionLength - 1;
                     }
-
-                    i += Decoder.AdditionalBytesToAdvance;
                 }
             }
-
             return sb.ToString();
         }
 

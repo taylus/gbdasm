@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Diagnostics;
 using GBDasm.Core;
 
@@ -9,8 +10,9 @@ namespace GBDasm.ConsoleApp
         public static void Main(string[] args)
         {
             //TODO: make command-line args
-            const string inFile = @"roms\Link's Awakening.gb";
-            const string outFile = @"Link's Awakening.asm";
+            const string fileName = "Link's Awakening DX.gbc";
+            string inFile = $"roms\\{fileName}";
+            string outFile = Path.ChangeExtension(fileName, ".asm");
 
             var rom = new RomFile(inFile);
             var dasm = new Disassembler(rom, new Decoder());

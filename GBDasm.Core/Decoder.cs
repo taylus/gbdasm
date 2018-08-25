@@ -10,33 +10,16 @@ namespace GBDasm.Core
     /// <see cref="http://www.pastraiser.com/cpu/gameboy/gameboy_opcodes.html"/>
     /// <see cref="http://goldencrystal.free.fr/GBZ80Opcodes.pdf"/>
     /// <see cref="https://rednex.github.io/rgbds/gbz80.7.html"/>
-    public class Decoder
+    public class Decoder 
     {
-        /// <summary>
-        /// The number of bytes skipped by the last instruction decode (if any).
-        /// E.g. NOP is one byte, so zero bytes are skipped after it for arguments.
-        /// However, JR n is two bytes, so one byte is skipped after it for its relative offset.
-        /// </summary>
-        public int AdditionalBytesToAdvance { get; private set; }
-
-        public string Decode(byte[] data, int baseAddress = 0)
-        {
-            return Decode(new ArraySegment<byte>(data), baseAddress);
-        }
-
-        /// <summary>
-        /// TODO: genericize to indexing into an array of mnemonics and then
-        /// string-replacing with following bytes if applicable (like BizHawk)
-        /// </summary>
-        public string Decode(ArraySegment<byte> data, int baseAddress = 0)
+        public string Decode(ArraySegment<byte> data, out int instructionLength, int baseAddress = 0)
         {
             if (baseAddress < 0) throw new ArgumentException("Base address cannot be negative.", nameof(baseAddress));
 
-            var sb = new StringBuilder();
-            byte opcode, arg1, arg2;
-
             int addr = data.Offset;
+            byte opcode, arg1, arg2;
             opcode = data.Array[addr++];
+            var sb = new StringBuilder();
 
             switch (opcode)
             {
@@ -44,6 +27,7 @@ namespace GBDasm.Core
                     sb.AppendLine("nop");
                     break;
                 case 0x01:
+                    if (data.Count < 3) goto default;
                     arg1 = data.Array[addr++];
                     arg2 = data.Array[addr++];
                     sb.AppendLine($"ld bc, ${ToLittleEndian(arg1, arg2):x4}");
@@ -61,13 +45,15 @@ namespace GBDasm.Core
                     sb.AppendLine("dec b");
                     break;
                 case 0x06:
+                    if (data.Count < 2) goto default;
                     arg1 = data.Array[addr++];
                     sb.AppendLine($"ld b, ${arg1:x2}");
                     break;
                 case 0x07:
-                    sb.AppendLine("rlc a");
+                    sb.AppendLine("rlca");
                     break;
                 case 0x08:
+                    if (data.Count < 3) goto default;
                     arg1 = data.Array[addr++];
                     arg2 = data.Array[addr++];
                     sb.AppendLine($"ld [${ToLittleEndian(arg1, arg2):x4}], sp");
@@ -88,16 +74,31 @@ namespace GBDasm.Core
                     sb.AppendLine("dec c");
                     break;
                 case 0x0E:
+                    if (data.Count < 2) goto default;
                     arg1 = data.Array[addr++];
                     sb.AppendLine($"ld c, ${arg1:x2}");
                     break;
                 case 0x0F:
-                    sb.AppendLine("rrc a");
+                    sb.AppendLine("rrca");
                     break;
                 case 0x10:
-                    sb.AppendLine("stop");
+                    //peek ahead to see if the next instruction is a NOP
+                    //rgbdasm assembles "stop" as 0x10 0x00, so we only want to emit "stop" if it looks that way in the ROM
+                    //https://github.com/rednex/rgbds/blob/master/src/asm/asmy.y#L2004
+                    if (data.Count < 2) goto default;
+                    arg1 = data.Array[addr];
+                    if (arg1 == 0x00)
+                    {
+                        addr++;
+                        sb.AppendLine("stop");
+                    }
+                    else
+                    {
+                        sb.AppendLine("db $10 ;<corrupted stop>");
+                    }
                     break;
                 case 0x11:
+                    if (data.Count < 3) goto default;
                     arg1 = data.Array[addr++];
                     arg2 = data.Array[addr++];
                     sb.AppendLine($"ld de, ${ToLittleEndian(arg1, arg2):x4}");
@@ -115,16 +116,15 @@ namespace GBDasm.Core
                     sb.AppendLine("dec d");
                     break;
                 case 0x16:
+                    if (data.Count < 2) goto default;
                     arg1 = data.Array[addr++];
                     sb.AppendLine($"ld d, ${arg1:x2}");
                     break;
                 case 0x17:
-                    sb.AppendLine("rl a");
+                    sb.AppendLine("rla");
                     break;
                 case 0x18:
-                    arg1 = data.Array[addr++];
-                    sb.AppendLine($"jr ${CalculateAbsoluteJumpAddressFromRelativeOffset(baseAddress + addr, (sbyte)arg1):x4}");
-                    break;
+                    goto default; //TODO: figure out how to disassemble relative jump address properly
                 case 0x19:
                     sb.AppendLine("add hl, de");
                     break;
@@ -141,17 +141,17 @@ namespace GBDasm.Core
                     sb.AppendLine("dec e");
                     break;
                 case 0x1E:
+                    if (data.Count < 2) goto default;
                     arg1 = data.Array[addr++];
                     sb.AppendLine($"ld e, ${arg1:x2}");
                     break;
                 case 0x1F:
-                    sb.AppendLine("rr a");
+                    sb.AppendLine("rra");
                     break;
                 case 0x20:
-                    arg1 = data.Array[addr++];
-                    sb.AppendLine($"jr nz, ${CalculateAbsoluteJumpAddressFromRelativeOffset(baseAddress + addr, (sbyte)arg1):x4}");
-                    break;
+                    goto default; //TODO: figure out how to disassemble relative jump address properly
                 case 0x21:
+                    if (data.Count < 3) goto default;
                     arg1 = data.Array[addr++];
                     arg2 = data.Array[addr++];
                     sb.AppendLine($"ld hl, ${ToLittleEndian(arg1, arg2):x4}");
@@ -169,6 +169,7 @@ namespace GBDasm.Core
                     sb.AppendLine("dec h");
                     break;
                 case 0x26:
+                    if (data.Count < 2) goto default;
                     arg1 = data.Array[addr++];
                     sb.AppendLine($"ld h, ${arg1:x2}");
                     break;
@@ -176,9 +177,7 @@ namespace GBDasm.Core
                     sb.AppendLine("daa");
                     break;
                 case 0x28:
-                    arg1 = data.Array[addr++];
-                    sb.AppendLine($"jr z, ${CalculateAbsoluteJumpAddressFromRelativeOffset(baseAddress + addr, (sbyte)arg1):x4}");
-                    break;
+                    goto default; //TODO: figure out how to disassemble relative jump address properly
                 case 0x29:
                     sb.AppendLine("add hl, hl");
                     break;
@@ -195,6 +194,7 @@ namespace GBDasm.Core
                     sb.AppendLine("dec l");
                     break;
                 case 0x2E:
+                    if (data.Count < 2) goto default;
                     arg1 = data.Array[addr++];
                     sb.AppendLine($"ld l, ${arg1:x2}");
                     break;
@@ -202,10 +202,9 @@ namespace GBDasm.Core
                     sb.AppendLine("cpl");
                     break;
                 case 0x30:
-                    arg1 = data.Array[addr++];
-                    sb.AppendLine($"jr nc, ${CalculateAbsoluteJumpAddressFromRelativeOffset(baseAddress + addr, (sbyte)arg1):x4}");
-                    break;
+                    goto default; //TODO: figure out how to disassemble relative jump address properly
                 case 0x31:
+                    if (data.Count < 3) goto default;
                     arg1 = data.Array[addr++];
                     arg2 = data.Array[addr++];
                     sb.AppendLine($"ld sp, ${ToLittleEndian(arg1, arg2):x4}");
@@ -223,6 +222,7 @@ namespace GBDasm.Core
                     sb.AppendLine("dec [hl]");
                     break;
                 case 0x36:
+                    if (data.Count < 2) goto default;
                     arg1 = data.Array[addr++];
                     sb.AppendLine($"ld [hl], ${arg1:x2}");
                     break;
@@ -230,9 +230,7 @@ namespace GBDasm.Core
                     sb.AppendLine("scf");
                     break;
                 case 0x38:
-                    arg1 = data.Array[addr++];
-                    sb.AppendLine($"jr c, ${CalculateAbsoluteJumpAddressFromRelativeOffset(baseAddress + addr, (sbyte)arg1):x4}");
-                    break;
+                    goto default; //TODO: figure out how to disassemble relative jump address properly
                 case 0x39:
                     sb.AppendLine("add hl, sp");
                     break;
@@ -249,6 +247,7 @@ namespace GBDasm.Core
                     sb.AppendLine("dec a");
                     break;
                 case 0x3E:
+                    if (data.Count < 2) goto default;
                     arg1 = data.Array[addr++];
                     sb.AppendLine($"ld a, ${arg1:x2}");
                     break;
@@ -448,100 +447,100 @@ namespace GBDasm.Core
                     sb.AppendLine("ld a, a");
                     break;
                 case 0x80:
-                    sb.AppendLine("add a, b");
+                    sb.AppendLine("add b");
                     break;
                 case 0x81:
-                    sb.AppendLine("add a, c");
+                    sb.AppendLine("add c");
                     break;
                 case 0x82:
-                    sb.AppendLine("add a, d");
+                    sb.AppendLine("add d");
                     break;
                 case 0x83:
-                    sb.AppendLine("add a, e");
+                    sb.AppendLine("add e");
                     break;
                 case 0x84:
-                    sb.AppendLine("add a, h");
+                    sb.AppendLine("add h");
                     break;
                 case 0x85:
-                    sb.AppendLine("add a, l");
+                    sb.AppendLine("add l");
                     break;
                 case 0x86:
-                    sb.AppendLine("add a, [hl]");
+                    sb.AppendLine("add [hl]");
                     break;
                 case 0x87:
-                    sb.AppendLine("add a, a");
+                    sb.AppendLine("add a");
                     break;
                 case 0x88:
-                    sb.AppendLine("adc a, b");
+                    sb.AppendLine("adc b");
                     break;
                 case 0x89:
-                    sb.AppendLine("adc a, c");
+                    sb.AppendLine("adc c");
                     break;
                 case 0x8A:
-                    sb.AppendLine("adc a, d");
+                    sb.AppendLine("adc d");
                     break;
                 case 0x8B:
-                    sb.AppendLine("adc a, e");
+                    sb.AppendLine("adc e");
                     break;
                 case 0x8C:
-                    sb.AppendLine("adc a, h");
+                    sb.AppendLine("adc h");
                     break;
                 case 0x8D:
-                    sb.AppendLine("adc a, l");
+                    sb.AppendLine("adc l");
                     break;
                 case 0x8E:
-                    sb.AppendLine("adc a, [hl]");
+                    sb.AppendLine("adc [hl]");
                     break;
                 case 0x8F:
-                    sb.AppendLine("adc a, a");
+                    sb.AppendLine("adc a");
                     break;
                 case 0x90:
-                    sb.AppendLine("sub a, b");
+                    sb.AppendLine("sub b");
                     break;
                 case 0x91:
-                    sb.AppendLine("sub a, c");
+                    sb.AppendLine("sub c");
                     break;
                 case 0x92:
-                    sb.AppendLine("sub a, d");
+                    sb.AppendLine("sub d");
                     break;
                 case 0x93:
-                    sb.AppendLine("sub a, e");
+                    sb.AppendLine("sub e");
                     break;
                 case 0x94:
-                    sb.AppendLine("sub a, h");
+                    sb.AppendLine("sub h");
                     break;
                 case 0x95:
-                    sb.AppendLine("sub a, l");
+                    sb.AppendLine("sub l");
                     break;
                 case 0x96:
-                    sb.AppendLine("sub a, [hl]");
+                    sb.AppendLine("sub [hl]");
                     break;
                 case 0x97:
-                    sb.AppendLine("sub a, a");
+                    sb.AppendLine("sub a");
                     break;
                 case 0x98:
-                    sb.AppendLine("sbc a, b");
+                    sb.AppendLine("sbc b");
                     break;
                 case 0x99:
-                    sb.AppendLine("sbc a, c");
+                    sb.AppendLine("sbc c");
                     break;
                 case 0x9A:
-                    sb.AppendLine("sbc a, d");
+                    sb.AppendLine("sbc d");
                     break;
                 case 0x9B:
-                    sb.AppendLine("sbc a, e");
+                    sb.AppendLine("sbc e");
                     break;
                 case 0x9C:
-                    sb.AppendLine("sbc a, h");
+                    sb.AppendLine("sbc h");
                     break;
                 case 0x9D:
-                    sb.AppendLine("sbc a, l");
+                    sb.AppendLine("sbc l");
                     break;
                 case 0x9E:
-                    sb.AppendLine("sbc a, [hl]");
+                    sb.AppendLine("sbc [hl]");
                     break;
                 case 0x9F:
-                    sb.AppendLine("sbc a, a");
+                    sb.AppendLine("sbc a");
                     break;
                 case 0xA0:
                     sb.AppendLine("and b");
@@ -646,16 +645,19 @@ namespace GBDasm.Core
                     sb.AppendLine("pop bc");
                     break;
                 case 0xC2:
+                    if (data.Count < 3) goto default;
                     arg1 = data.Array[addr++];
                     arg2 = data.Array[addr++];
                     sb.AppendLine($"jp nz, ${ToLittleEndian(arg1, arg2):x4}");
                     break;
                 case 0xC3:
+                    if (data.Count < 3) goto default;
                     arg1 = data.Array[addr++];
                     arg2 = data.Array[addr++];
                     sb.AppendLine($"jp ${ToLittleEndian(arg1, arg2):x4}");
                     break;
                 case 0xC4:
+                    if (data.Count < 3) goto default;
                     arg1 = data.Array[addr++];
                     arg2 = data.Array[addr++];
                     sb.AppendLine($"call nz, ${ToLittleEndian(arg1, arg2):x4}");
@@ -664,6 +666,7 @@ namespace GBDasm.Core
                     sb.AppendLine("push bc");
                     break;
                 case 0xC6:
+                    if (data.Count < 2) goto default;
                     arg1 = data.Array[addr++];
                     sb.AppendLine($"add a, ${arg1:x2}");
                     break;
@@ -677,25 +680,33 @@ namespace GBDasm.Core
                     sb.AppendLine("ret");
                     break;
                 case 0xCA:
+                    if (data.Count < 3) goto default;
                     arg1 = data.Array[addr++];
                     arg2 = data.Array[addr++];
                     sb.AppendLine($"jp z, ${ToLittleEndian(arg1, arg2):x4}");
                     break;
                 case 0xCB:
                     //TODO: handle two-byte instructions
+                    //(for now just spit them back out using db)
+                    if (data.Count < 2) goto default;
                     arg1 = data.Array[addr++];
-                    throw new UndefinedOpcodeException(opcode, baseAddress + addr - 2);
+                    sb.AppendLine($"db ${opcode:x2}");
+                    sb.AppendLine($"db ${arg1:x2}");
+                    break;
                 case 0xCC:
+                    if (data.Count < 3) goto default;
                     arg1 = data.Array[addr++];
                     arg2 = data.Array[addr++];
                     sb.AppendLine($"call z, ${ToLittleEndian(arg1, arg2):x4}");
                     break;
                 case 0xCD:
+                    if (data.Count < 3) goto default;
                     arg1 = data.Array[addr++];
                     arg2 = data.Array[addr++];
                     sb.AppendLine($"call ${ToLittleEndian(arg1, arg2):x4}");
                     break;
                 case 0xCE:
+                    if (data.Count < 2) goto default;
                     arg1 = data.Array[addr++];
                     sb.AppendLine($"adc a, ${arg1:x2}");
                     break;
@@ -709,13 +720,13 @@ namespace GBDasm.Core
                     sb.AppendLine("pop de");
                     break;
                 case 0xD2:
+                    if (data.Count < 3) goto default;
                     arg1 = data.Array[addr++];
                     arg2 = data.Array[addr++];
                     sb.AppendLine($"jp nc, ${ToLittleEndian(arg1, arg2):x4}");
                     break;
-                case 0xD3:
-                    throw new UndefinedOpcodeException(opcode, baseAddress + addr - 1);
                 case 0xD4:
+                    if (data.Count < 3) goto default;
                     arg1 = data.Array[addr++];
                     arg2 = data.Array[addr++];
                     sb.AppendLine($"call nc, ${ToLittleEndian(arg1, arg2):x4}");
@@ -724,6 +735,7 @@ namespace GBDasm.Core
                     sb.AppendLine("push de");
                     break;
                 case 0xD6:
+                    if (data.Count < 2) goto default;
                     arg1 = data.Array[addr++];
                     sb.AppendLine($"sub a, ${arg1:x2}");
                     break;
@@ -737,20 +749,19 @@ namespace GBDasm.Core
                     sb.AppendLine("reti");
                     break;
                 case 0xDA:
+                    if (data.Count < 3) goto default;
                     arg1 = data.Array[addr++];
                     arg2 = data.Array[addr++];
                     sb.AppendLine($"jp c, ${ToLittleEndian(arg1, arg2):x4}");
                     break;
-                case 0xDB:
-                    throw new UndefinedOpcodeException(opcode, baseAddress + addr - 1);
                 case 0xDC:
+                    if (data.Count < 3) goto default;
                     arg1 = data.Array[addr++];
                     arg2 = data.Array[addr++];
                     sb.AppendLine($"call c, ${ToLittleEndian(arg1, arg2):x4}");
                     break;
-                case 0xDD:
-                    throw new UndefinedOpcodeException(opcode, baseAddress + addr - 1);
                 case 0xDE:
+                    if (data.Count < 2) goto default;
                     arg1 = data.Array[addr++];
                     sb.AppendLine($"sbc a, ${arg1:x2}");
                     break;
@@ -758,6 +769,7 @@ namespace GBDasm.Core
                     sb.AppendLine("rst $18");
                     break;
                 case 0xE0:
+                    if (data.Count < 2) goto default;
                     arg1 = data.Array[addr++];
                     sb.AppendLine($"ldh [${(0xFF00 + arg1):x2}], a");
                     break;
@@ -765,15 +777,13 @@ namespace GBDasm.Core
                     sb.AppendLine("pop hl");
                     break;
                 case 0xE2:
-                    sb.AppendLine("ldh [$ff00 + c], a");
+                    sb.AppendLine("ld [$ff00+c], a");
                     break;
-                case 0xE3:
-                case 0xE4:
-                    throw new UndefinedOpcodeException(opcode, baseAddress + addr - 1);
                 case 0xE5:
                     sb.AppendLine("push hl");
                     break;
                 case 0xE6:
+                    if (data.Count < 2) goto default;
                     arg1 = data.Array[addr++];
                     sb.AppendLine($"and a, ${arg1:x2}");
                     break;
@@ -781,22 +791,21 @@ namespace GBDasm.Core
                     sb.AppendLine("rst $20");
                     break;
                 case 0xE8:
+                    if (data.Count < 2) goto default;
                     arg1 = data.Array[addr++];
                     sb.AppendLine($"add sp, ${arg1:x2}");
                     break;
                 case 0xE9:
-                    sb.AppendLine("jp [hl]");
+                    sb.AppendLine("jp hl");
                     break;
                 case 0xEA:
+                    if (data.Count < 3) goto default;
                     arg1 = data.Array[addr++];
                     arg2 = data.Array[addr++];
                     sb.AppendLine($"ld [${ToLittleEndian(arg1, arg2):x4}], a");
                     break;
-                case 0xEB:
-                case 0xEC:
-                case 0xED:
-                    throw new UndefinedOpcodeException(opcode, baseAddress + addr - 1);
                 case 0xEE:
+                    if (data.Count < 2) goto default;
                     arg1 = data.Array[addr++];
                     sb.AppendLine($"xor ${arg1:x2}");
                     break;
@@ -804,23 +813,21 @@ namespace GBDasm.Core
                     sb.AppendLine("rst $28");
                     break;
                 case 0xF0:
+                    if (data.Count < 2) goto default;
                     arg1 = data.Array[addr++];
                     sb.AppendLine($"ldh a, [${(0xFF00 + arg1):x2}]");
                     break;
                 case 0xF1:
                     sb.AppendLine("pop af");
                     break;
-                case 0xF2:
-                    throw new UndefinedOpcodeException(opcode, baseAddress + addr - 1);
                 case 0xF3:
                     sb.AppendLine("di");
                     break;
-                case 0xF4:
-                    throw new UndefinedOpcodeException(opcode, baseAddress + addr - 1);
                 case 0xF5:
                     sb.AppendLine("push af");
                     break;
                 case 0xF6:
+                    if (data.Count < 2) goto default;
                     arg1 = data.Array[addr++];
                     sb.AppendLine($"or ${arg1:x2}");
                     break;
@@ -828,13 +835,15 @@ namespace GBDasm.Core
                     sb.AppendLine("rst $30");
                     break;
                 case 0xF8:
+                    if (data.Count < 2) goto default;
                     arg1 = data.Array[addr++];
-                    sb.AppendLine($"ld hl, [sp + ${arg1:x2}]");
+                    sb.AppendLine($"ld hl, sp+${arg1:x2}");
                     break;
                 case 0xF9:
                     sb.AppendLine("ld sp, hl");
                     break;
                 case 0xFA:
+                    if (data.Count < 3) goto default;
                     arg1 = data.Array[addr++];
                     arg2 = data.Array[addr++];
                     sb.AppendLine($"ld a, [${ToLittleEndian(arg1, arg2):x4}]");
@@ -842,41 +851,22 @@ namespace GBDasm.Core
                 case 0xFB:
                     sb.AppendLine("ei");
                     break;
-                case 0xFC:
-                case 0xFD:
-                    throw new UndefinedOpcodeException(opcode, baseAddress + addr - 1);
                 case 0xFE:
+                    if (data.Count < 2) goto default;
                     arg1 = data.Array[addr++];
                     sb.AppendLine($"cp ${arg1:x2}");
                     break;
                 case 0xFF:
                     sb.AppendLine("rst $38");
                     break;
+                default:
+                    //emit undefined or not-yet-implemented opcodes into the disassembly as db (define byte) instructions
+                    sb.AppendLine($"db ${opcode:x2} ;<unknown instruction>");
+                    break;
             }
 
-            AdditionalBytesToAdvance = addr - data.Offset - 1;
+            instructionLength = addr - data.Offset;
             return sb.ToString().Trim();
-        }
-
-        /// <summary>
-        /// Calculates the absolute memory address to jump to from a relative jump (JR) instruction
-        /// with the given offset executed from the given base address + offset.
-        /// </summary>
-        /// <param name="baseAddress">The base address of the program ROM (usually $0000).</param>
-        /// <param name="currentAddress">The relative address of this instruction in ROM.</param>
-        /// <param name="offset">The signed offset specified immediately after the JR instruction.</param>
-        private static int CalculateAbsoluteJumpAddressFromRelativeOffset(int addressOfInstruction, sbyte offsetFromInstruction)
-        {
-            int jumpAddress = addressOfInstruction + offsetFromInstruction;
-
-            //lower bounds check: addresses don't go negative
-            if (jumpAddress < 0) return 0;
-
-            //upper bounds check: wrap around from $0000
-            //this is bgb's behavior (is this what a real Game Boy does? a ROM would never do this anyway, right...?)
-            if (jumpAddress > 0xffff) return jumpAddress - 0x10000;
-
-            return jumpAddress;
         }
 
         /// <summary>

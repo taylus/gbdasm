@@ -6,9 +6,12 @@ namespace GBDasm.Core
     public class RomFile
     {
         /// <summary>
-        /// Raw bytes of ROM file. Contains both instructions and data.
+        /// Raw bytes of entire ROM file. Contains both instructions and data.
         /// </summary>
         public byte[] Data { get; private set; }
+
+        public const int BankSize = 0x4000;
+        public int NumberOfBanks => Data.Length / BankSize;
 
         /// <summary>
         /// Header section of the ROM containing metadata about the game.
@@ -26,6 +29,19 @@ namespace GBDasm.Core
         public RomFile(string path)
         {
             Data = File.ReadAllBytes(path);
+        }
+
+        /// <summary>
+        /// Returns the ROM bank with the given number.
+        /// Game Boy ROMs are split up into 16KB banks.
+        /// The first bank is always addressable from $0000 - $3fff.
+        /// The other banks are switched into range $4000 - $7fff using a memory management controller (MMC).
+        /// </summary>
+        /// <see cref="http://gameboy.mongenel.com/dmg/asmmemmap.html"/>
+        public ArraySegment<byte> GetBank(int bankNumber)
+        {
+            if (bankNumber < NumberOfBanks) throw new ArgumentException("Bank number exceeds number of banks in ROM.", nameof(bankNumber));
+            return new ArraySegment<byte>(Data, bankNumber * BankSize, BankSize);
         }
 
         /// <summary>
