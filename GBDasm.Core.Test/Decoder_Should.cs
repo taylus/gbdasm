@@ -1,8 +1,10 @@
-using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GBDasm.Core.Test
 {
+    /// <summary>
+    /// Test decoding each GBZ80 instruction using <see cref="Decoder"/>.
+    /// </summary>
     [TestClass]
     public class Decoder_Should
     {
@@ -159,15 +161,18 @@ namespace GBDasm.Core.Test
             Assert.AreEqual("rla", decoder.Decode(new byte[] { 0x17 }, out int instructionLength));
         }
 
-        //TODO: implement relative jumps and fix this test
-        //[TestMethod]
+        [TestMethod]
         public void Decode_0x18_To_Relative_Jump_By_Signed_Immediate()
         {
-            Assert.AreEqual("jr $0003", decoder.Decode(new byte[] { 0x18, 0x01 }, out int instructionLength), "Relative jump by a positive offset should add to the current address.");
-            Assert.AreEqual("jr $0000", decoder.Decode(new byte[] { 0x18, 0xFE /* -2 */ }, out instructionLength), "Relative jump by a negative offset should subtract from the current address.");
-            Assert.AreEqual("jr $000a", decoder.Decode(new byte[] { 0x18, 0xFC /* -4 */ }, out instructionLength, baseAddress: 0x000c), "Relative jump by a negative offset should subtract from the current address.");
-            Assert.AreEqual("jr $0000", decoder.Decode(new byte[] { 0x18, 0xC0 /* -64 */ }, out instructionLength), "Relative jump by a negative offset should floor at $0000.");
-            Assert.AreEqual("jr $0001", decoder.Decode(new byte[] { 0x18, 0x0F }, out instructionLength, baseAddress: 0xFFF0), "Relative jump by a positive offset from a high address should wrap around from $0000.");
+            //negative offset (-10 dec); banks > 1 should wrap around to stay within $4000 - $7FFF
+            Assert.AreEqual("jr $0ed6", decoder.Decode(new byte[] { 0x18, 0xF6 }, out int instructionLength, baseAddress: 0x0EDE)); //bank 0
+            Assert.AreEqual("jr $4ed6", decoder.Decode(new byte[] { 0x18, 0xF6 }, out instructionLength, baseAddress: 0x4EDE)); //bank 1
+            Assert.AreEqual("jr $4ed6", decoder.Decode(new byte[] { 0x18, 0xF6 }, out instructionLength, baseAddress: 0x8EDE)); //bank 2
+
+            //positive offset (+10 dec); banks > 1 should wrap around to stay within $4000 - $7FFF
+            Assert.AreEqual("jr $0eea", decoder.Decode(new byte[] { 0x18, 0x0A }, out instructionLength, baseAddress: 0x0EDE)); //bank 0
+            Assert.AreEqual("jr $4eea", decoder.Decode(new byte[] { 0x18, 0x0A }, out instructionLength, baseAddress: 0x4EDE)); //bank 1
+            Assert.AreEqual("jr $4eea", decoder.Decode(new byte[] { 0x18, 0x0A }, out instructionLength, baseAddress: 0x8EDE)); //bank 2
         }
 
         [TestMethod]
@@ -212,11 +217,10 @@ namespace GBDasm.Core.Test
             Assert.AreEqual("rra", decoder.Decode(new byte[] { 0x1F }, out int instructionLength));
         }
 
-        //TODO: implement relative jumps and fix this test
-        //[TestMethod]
+        [TestMethod]
         public void Decode_0x20_To_Relative_Jump_By_Signed_Immediate_If_Last_Result_Was_Not_Zero()
         {
-            Assert.AreEqual("jr nz, $0003", decoder.Decode(new byte[] { 0x20, 0x01 }, out int instructionLength));
+            Assert.AreEqual("jr nz, $0ed6", decoder.Decode(new byte[] { 0x20, 0xF6 }, out int instructionLength, baseAddress: 0x0EDE));
         }
 
         [TestMethod]
@@ -261,11 +265,10 @@ namespace GBDasm.Core.Test
             Assert.AreEqual("daa", decoder.Decode(new byte[] { 0x27 }, out int instructionLength));
         }
 
-        //TODO: implement relative jumps and fix this test
-        //[TestMethod]
+        [TestMethod]
         public void Decode_0x28_To_Relative_Jump_By_Signed_Immediate_If_Last_Result_Was_Zero()
         {
-            Assert.AreEqual("jr z, $0003", decoder.Decode(new byte[] { 0x28, 0x01 }, out int instructionLength));
+            Assert.AreEqual("jr z, $0ed6", decoder.Decode(new byte[] { 0x28, 0xF6 }, out int instructionLength, baseAddress: 0x0EDE));
         }
 
         [TestMethod]
@@ -310,11 +313,10 @@ namespace GBDasm.Core.Test
             Assert.AreEqual("cpl", decoder.Decode(new byte[] { 0x2F }, out int instructionLength));
         }
 
-        //TODO: implement relative jumps and fix this test
-        //[TestMethod]
+        [TestMethod]
         public void Decode_0x30_To_Relative_Jump_By_Signed_Immediate_If_Last_Result_Caused_No_Carry()
         {
-            Assert.AreEqual("jr nc, $0005", decoder.Decode(new byte[] { 0x30, 0x03 }, out int instructionLength));
+            Assert.AreEqual("jr nc, $0ed6", decoder.Decode(new byte[] { 0x30, 0xF6 }, out int instructionLength, baseAddress: 0x0EDE));
         }
 
         [TestMethod]
@@ -359,11 +361,10 @@ namespace GBDasm.Core.Test
             Assert.AreEqual("scf", decoder.Decode(new byte[] { 0x37 }, out int instructionLength));
         }
 
-        //TODO: implement relative jumps and fix this test
-        //[TestMethod]
+        [TestMethod]
         public void Decode_0x38_To_Relative_Jump_By_Signed_Immediate_If_Last_Result_Caused_Carry()
         {
-            Assert.AreEqual("jr c, $0003", decoder.Decode(new byte[] { 0x38, 0x01 }, out int instructionLength));
+            Assert.AreEqual("jr c, $0ed6", decoder.Decode(new byte[] { 0x38, 0xF6 }, out int instructionLength, baseAddress: 0x0EDE));
         }
 
         [TestMethod]

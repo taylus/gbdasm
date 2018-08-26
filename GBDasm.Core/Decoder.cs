@@ -10,7 +10,7 @@ namespace GBDasm.Core
     /// <see cref="http://www.pastraiser.com/cpu/gameboy/gameboy_opcodes.html"/>
     /// <see cref="http://goldencrystal.free.fr/GBZ80Opcodes.pdf"/>
     /// <see cref="https://rednex.github.io/rgbds/gbz80.7.html"/>
-    public class Decoder 
+    public class Decoder
     {
         public string Decode(ArraySegment<byte> data, out int instructionLength, int baseAddress = 0)
         {
@@ -124,7 +124,10 @@ namespace GBDasm.Core
                     sb.AppendLine("rla");
                     break;
                 case 0x18:
-                    goto default; //TODO: figure out how to disassemble relative jump address properly
+                    if (data.Count < 2) goto default;
+                    arg1 = data.Array[addr++];
+                    sb.AppendLine($"jr ${CalculateJumpAddressFromOffset(baseAddress + addr, (sbyte)arg1):x4}");
+                    break;
                 case 0x19:
                     sb.AppendLine("add hl, de");
                     break;
@@ -149,7 +152,10 @@ namespace GBDasm.Core
                     sb.AppendLine("rra");
                     break;
                 case 0x20:
-                    goto default; //TODO: figure out how to disassemble relative jump address properly
+                    if (data.Count < 2) goto default;
+                    arg1 = data.Array[addr++];
+                    sb.AppendLine($"jr nz, ${CalculateJumpAddressFromOffset(baseAddress + addr, (sbyte)arg1):x4}");
+                    break;
                 case 0x21:
                     if (data.Count < 3) goto default;
                     arg1 = data.Array[addr++];
@@ -177,7 +183,10 @@ namespace GBDasm.Core
                     sb.AppendLine("daa");
                     break;
                 case 0x28:
-                    goto default; //TODO: figure out how to disassemble relative jump address properly
+                    if (data.Count < 2) goto default;
+                    arg1 = data.Array[addr++];
+                    sb.AppendLine($"jr z, ${CalculateJumpAddressFromOffset(baseAddress + addr, (sbyte)arg1):x4}");
+                    break;
                 case 0x29:
                     sb.AppendLine("add hl, hl");
                     break;
@@ -202,7 +211,10 @@ namespace GBDasm.Core
                     sb.AppendLine("cpl");
                     break;
                 case 0x30:
-                    goto default; //TODO: figure out how to disassemble relative jump address properly
+                    if (data.Count < 2) goto default;
+                    arg1 = data.Array[addr++];
+                    sb.AppendLine($"jr nc, ${CalculateJumpAddressFromOffset(baseAddress + addr, (sbyte)arg1):x4}");
+                    break;
                 case 0x31:
                     if (data.Count < 3) goto default;
                     arg1 = data.Array[addr++];
@@ -230,7 +242,10 @@ namespace GBDasm.Core
                     sb.AppendLine("scf");
                     break;
                 case 0x38:
-                    goto default; //TODO: figure out how to disassemble relative jump address properly
+                    if (data.Count < 2) goto default;
+                    arg1 = data.Array[addr++];
+                    sb.AppendLine($"jr c, ${CalculateJumpAddressFromOffset(baseAddress + addr, (sbyte)arg1):x4}");
+                    break;
                 case 0x39:
                     sb.AppendLine("add hl, sp");
                     break;
@@ -867,6 +882,23 @@ namespace GBDasm.Core
 
             instructionLength = addr - data.Offset;
             return sb.ToString().Trim();
+        }
+
+        /// <summary>
+        /// Calculates the Game Boy memory mapped address to jump to when processing relative jump (JR) instructions.
+        /// </summary>
+        /// <param name="programCounter">The absolute cartridge-space address *immediately after* the jump instruction.</param>
+        /// <param name="offset">The signed 8-bit offset read from the instruction.</param>
+        private static int CalculateJumpAddressFromOffset(int programCounter, sbyte offset)
+        {
+            //map cartridge-space addresses into the Game Boy's memory map
+            //bank 0: fixed at $0000 - $3FFF
+            //banks 1 - n: switchable at $4000 - $7FFF
+            bool bankZero = programCounter < RomFile.BankSize;
+            programCounter %= RomFile.BankSize;
+            if (!bankZero) programCounter += RomFile.BankSize;
+
+            return programCounter + offset;
         }
 
         /// <summary>
