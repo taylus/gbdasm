@@ -10,7 +10,7 @@ namespace GBDasm.ConsoleApp
         public static void Main(string[] args)
         {
             //TODO: make command-line args
-            const string fileName = "Link's Awakening DX.gbc";
+            const string fileName = "Super Mario Land.gb";
             string inFile = $"roms\\{fileName}";
             string outFile = Path.ChangeExtension(fileName, ".asm");
 
