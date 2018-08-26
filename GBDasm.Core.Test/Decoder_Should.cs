@@ -1243,7 +1243,19 @@ namespace GBDasm.Core.Test
             Assert.AreEqual("jp z, $cafe", decoder.Decode(new byte[] { 0xCA, 0xFE, 0xCA }, out int instructionLength));
         }
 
-        //TODO: test two-bit instructions beginning with 0xCB
+        [TestMethod]
+        public void Decode_0xCB_0x00_To_Rotate_B_Left_With_Carry()
+        {
+            Assert.AreEqual("rlc b", decoder.Decode(new byte[] { 0xCB, 0x00 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x01_To_Rotate_C_Left_With_Carry()
+        {
+            Assert.AreEqual("rlc c", decoder.Decode(new byte[] { 0xCB, 0x01 }, out int instructionLength));
+        }
+
+        //TODO: remaining CB instruction tests
 
         [TestMethod]
         public void Decode_0xCC_To_Call_Routine_At_16_Bit_Address_If_Last_Result_Was_Zero()

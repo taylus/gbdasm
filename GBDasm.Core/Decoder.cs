@@ -701,12 +701,9 @@ namespace GBDasm.Core
                     sb.AppendLine($"jp z, ${ToLittleEndian(arg1, arg2):x4}");
                     break;
                 case 0xCB:
-                    //TODO: handle two-byte instructions
-                    //(for now just spit them back out using db)
                     if (data.Count < 2) goto default;
                     arg1 = data.Array[addr++];
-                    sb.AppendLine($"db ${opcode:x2}");
-                    sb.AppendLine($"db ${arg1:x2}");
+                    sb.AppendLine(ExtendedMnemonicsCB[arg1]);
                     break;
                 case 0xCC:
                     if (data.Count < 3) goto default;
@@ -883,6 +880,77 @@ namespace GBDasm.Core
             instructionLength = addr - data.Offset;
             return sb.ToString().Trim();
         }
+
+        /// <summary>
+        /// "Extended" two-byte instructions beginning with 0xCB.
+        /// </summary>
+        private string[] ExtendedMnemonicsCB =
+        {
+            //0x00 - 0x07: rotate left w/ carry
+            "rlc b", "rlc c", "rlc d", "rlc e", "rlc h", "rlc l", "rlc [hl]", "rlc a",
+            //0x08 - 0x0F: rotate right w/ carry
+            "rrc b", "rrc c", "rrc d", "rrc e", "rrc h", "rrc l", "rrc [hl]", "rrc a",
+            //0x10 - 0x17: rotate left
+            "rl b",  "rl c",  "rl d",  "rl e",  "rl h",  "rl l",  "rl [hl]",  "rl a",
+            //0x18 - 0x1F: rotate left
+            "rr b",  "rr c",  "rr d",  "rr e",  "rr h",  "rr l",  "rr [hl]",  "rr a",
+            //0x20 - 0x27: shift left arithmetic (preserve sign)
+            "sla b", "sla c", "sla d", "sla e", "sla h", "sla l", "sla [hl]", "sla a",
+            //0x28 - 0x2F: shift right arithmetic (preserve sign)
+            "sra b", "sra c", "sra d", "sra e", "sra h", "sra l", "sra [hl]", "sra a",
+            //0x30 - 0x37: swap nybbles
+            "swap b", "swap c", "swap d", "swap e", "swap h", "swap l", "swap [hl]", "swap a",
+            //0x38 - 0x3F: shift left logical
+            "srl b", "srl c", "srl d", "srl e", "srl h", "srl l", "srl [hl]", "srl a",
+            //0x40 - 0x47: bit test (set zero flag if bit 0 is not set)
+            "bit 0, b", "bit 0, c", "bit 0, d", "bit 0, e", "bit 0, h", "bit 0, l", "bit 0, [hl]", "bit 0, a",
+            //0x48 - 0x4F: bit test (set zero flag if bit 1 is not set)
+            "bit 1, b", "bit 1, c", "bit 1, d", "bit 1, e", "bit 1, h", "bit 1, l", "bit 1, [hl]", "bit 1, a",
+            //0x50 - 0x57: bit test (set zero flag if bit 2 is not set)
+            "bit 2, b", "bit 2, c", "bit 2, d", "bit 2, e", "bit 2, h", "bit 2, l", "bit 2, [hl]", "bit 2, a",
+            //0x58 - 0x5F: bit test (set zero flag if bit 3 is not set)
+            "bit 3, b", "bit 3, c", "bit 3, d", "bit 3, e", "bit 3, h", "bit 3, l", "bit 3, [hl]", "bit 3, a",
+            //0x60 - 0x67: bit test (set zero flag if bit 4 is not set)
+            "bit 4, b", "bit 4, c", "bit 4, d", "bit 4, e", "bit 4, h", "bit 4, l", "bit 4, [hl]", "bit 4, a",
+            //0x68 - 0x6F: bit test (set zero flag if bit 5 is not set)
+            "bit 5, b", "bit 5, c", "bit 5, d", "bit 5, e", "bit 5, h", "bit 5, l", "bit 5, [hl]", "bit 5, a",
+            //0x70 - 0x67: bit test (set zero flag if bit 6 is not set)
+            "bit 6, b", "bit 6, c", "bit 6, d", "bit 6, e", "bit 6, h", "bit 6, l", "bit 6, [hl]", "bit 6, a",
+            //0x78 - 0x7F: bit test (set zero flag if bit 7 is not set)
+            "bit 7, b", "bit 7, c", "bit 7, d", "bit 7, e", "bit 7, h", "bit 7, l", "bit 7, [hl]", "bit 7, a",
+            //0x80 - 0x87: reset (clear) bit 0
+            "res 0, b", "res 0, c", "res 0, d", "res 0, e", "res 0, h", "res 0, l", "res 0, [hl]", "res 0, a",
+            //0x88 - 0x8F: reset (clear) bit 1
+            "res 1, b", "res 1, c", "res 1, d", "res 1, e", "res 1, h", "res 1, l", "res 1, [hl]", "res 1, a",
+            //0x90 - 0x97: reset (clear) bit 2
+            "res 2, b", "res 2, c", "res 2, d", "res 2, e", "res 2, h", "res 2, l", "res 2, [hl]", "res 2, a",
+            //0x98 - 0x9F: reset (clear) bit 3
+            "res 3, b", "res 3, c", "res 3, d", "res 3, e", "res 3, h", "res 3, l", "res 3, [hl]", "res 3, a",
+            //0xA0 - 0xA7: reset (clear) bit 4
+            "res 4, b", "res 4, c", "res 4, d", "res 4, e", "res 4, h", "res 4, l", "res 4, [hl]", "res 4, a",
+            //0xA8 - 0xAF: reset (clear) bit 5
+            "res 5, b", "res 5, c", "res 5, d", "res 5, e", "res 5, h", "res 5, l", "res 5, [hl]", "res 5, a",
+            //0xB0 - 0xB7: reset (clear) bit 6
+            "res 6, b", "res 6, c", "res 6, d", "res 6, e", "res 6, h", "res 6, l", "res 6, [hl]", "res 6, a",
+            //0xB8 - 0xBF: reset (clear) bit 7
+            "res 7, b", "res 7, c", "res 7, d", "res 7, e", "res 7, h", "res 7, l", "res 7, [hl]", "res 7, a",
+            //0xC0 - 0xC7: set bit 0
+            "set 0, b", "set 0, c", "set 0, d", "set 0, e", "set 0, h", "set 0, l", "set 0, [hl]", "set 0, a",
+            //0xC7 - 0xC8: set bit 1
+            "set 1, b", "set 1, c", "set 1, d", "set 1, e", "set 1, h", "set 1, l", "set 1, [hl]", "set 1, a",
+            //0xD0 - 0xD7: set bit 2
+            "set 2, b", "set 2, c", "set 2, d", "set 2, e", "set 2, h", "set 2, l", "set 2, [hl]", "set 2, a",
+            //0xD7 - 0xD8: set bit 3
+            "set 3, b", "set 3, c", "set 3, d", "set 3, e", "set 3, h", "set 3, l", "set 3, [hl]", "set 3, a",
+            //0xE0 - 0xE7: set bit 4
+            "set 4, b", "set 4, c", "set 4, d", "set 4, e", "set 4, h", "set 4, l", "set 4, [hl]", "set 4, a",
+            //0xE7 - 0xE8: set bit 5
+            "set 5, b", "set 5, c", "set 5, d", "set 5, e", "set 5, h", "set 5, l", "set 5, [hl]", "set 5, a",
+            //0xF0 - 0xF7: set bit 6
+            "set 6, b", "set 6, c", "set 6, d", "set 6, e", "set 6, h", "set 6, l", "set 6, [hl]", "set 6, a",
+            //0xF7 - 0xF8: set bit 7
+            "set 7, b", "set 7, c", "set 7, d", "set 7, e", "set 7, h", "set 7, l", "set 7, [hl]", "set 7, a",
+        };
 
         /// <summary>
         /// Calculates the Game Boy memory mapped address to jump to when processing relative jump (JR) instructions.
