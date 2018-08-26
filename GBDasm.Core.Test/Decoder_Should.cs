@@ -8,18 +8,6 @@ namespace GBDasm.Core.Test
     {
         private Decoder decoder = new Decoder();
 
-        //TODO: move this! this is a test for the disassembler, not the decoder!
-        //[TestMethod]
-        public void Decode_Multiple_Instructions()
-        {
-            string expected =
-                $"nop{Environment.NewLine}" +
-                $"ld bc, $dead{Environment.NewLine}" +
-                $"nop{Environment.NewLine}" +
-                $"inc bc";
-            Assert.AreEqual(expected, decoder.Decode(new byte[] { 0x00, 0x01, 0xAD, 0xDE, 0x00, 0x03 }, out int instructionLength));
-        }
-
         [TestMethod]
         public void Decode_0x00_To_Nop()
         {

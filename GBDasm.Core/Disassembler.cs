@@ -24,7 +24,7 @@ namespace GBDasm.Core
             for (int bankNumber = 0; bankNumber < RomFile.NumberOfBanks; bankNumber++)
             {
                 sb.AppendLine($"SECTION \"rom{bankNumber}\", ROM{(bankNumber == 0 ? '0' : 'X')}");
-                for (int addressWithinBank = 0; addressWithinBank < RomFile.BankSize; addressWithinBank++)
+                for (int addressWithinBank = 0; addressWithinBank < Math.Min(RomFile.BankSize, RomFile.Data.Length); addressWithinBank++)
                 {
                     int absoluteAddress = (bankNumber * RomFile.BankSize) + addressWithinBank;
                     if (RomFile.IsInHeader(absoluteAddress))
@@ -34,14 +34,14 @@ namespace GBDasm.Core
                     }
                     else
                     {
-                        var data = new ArraySegment<byte>(RomFile.Data, absoluteAddress, RomFile.BankSize - addressWithinBank);
+                        var data = new ArraySegment<byte>(RomFile.Data, absoluteAddress, Math.Min(RomFile.BankSize, RomFile.Data.Length) - addressWithinBank);
                         string dasm = Decoder.Decode(data, out int instructionLength);
                         sb.AppendLine($"{dasm} ;{absoluteAddress:x4}");
                         addressWithinBank += instructionLength - 1;
                     }
                 }
             }
-            return sb.ToString();
+            return sb.ToString().Trim();
         }
 
         public void Disassemble(string path)

@@ -11,7 +11,8 @@ namespace GBDasm.Core
         public byte[] Data { get; private set; }
 
         public const int BankSize = 0x4000;
-        public int NumberOfBanks => Data.Length / BankSize;
+        public int NumberOfBanks => Math.Max(1, Data.Length / BankSize);
+        public bool HasHeader { get; set; }
 
         /// <summary>
         /// Header section of the ROM containing metadata about the game.
@@ -21,7 +22,15 @@ namespace GBDasm.Core
         /// <summary>
         /// Returns true if the given address falls within the ROM header, false otherwise.
         /// </summary>
-        public bool IsInHeader(int address) => (address >= Header.Offset && address < (Header.Offset + Header.Count));
+        public bool IsInHeader(int address) => (HasHeader && address >= Header.Offset && address < (Header.Offset + Header.Count));
+
+        /// <summary>
+        /// Loads a ROM from the given data.
+        /// </summary>
+        public RomFile(byte[] data)
+        {
+            Data = data;
+        }
 
         /// <summary>
         /// Loads a ROM from the file at the given path.
