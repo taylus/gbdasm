@@ -25,7 +25,25 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="roms\Battletoads.gb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="roms\Donkey Kong Country.gbc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="roms\Gameboy Camera.gb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="roms\Harvest Moon GB.gbc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="roms\homebrew-test-rom.gb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="roms\Legend of Zelda, The - Oracle of Ages.gbc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="roms\Legend of Zelda, The - Oracle of Seasons.gbc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="roms\Link%27s Awakening DX.gbc">
@@ -37,7 +55,19 @@
     <None Update="roms\Pokemon Blue.gb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="roms\Pokemon Pinball.gbc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="roms\Pokemon Silver.gbc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="roms\Pokemon Trading Card Game.gbc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="roms\Pokemon Yellow.gbc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="roms\Super Mario Bros. Deluxe.gbc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="roms\Super Mario Land 2.gb">

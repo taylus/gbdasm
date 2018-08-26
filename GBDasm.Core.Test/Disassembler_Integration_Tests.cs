@@ -3,6 +3,7 @@ using System.Text;
 using System.Linq;
 using System.Diagnostics;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Security.Cryptography;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -16,7 +17,7 @@ namespace GBDasm.Core.Test
         private const string Linker = "rgblink";
 
         private const string TestRomPath = "roms";
-        private const int WaitMilliseconds = 10 * 1000;
+        private const int WaitMilliseconds = 20 * 1000;
 
         /// <summary>
         /// Loop over every ROM in TestRomPath and for each: disassemble it, reassemble it,
@@ -31,10 +32,7 @@ namespace GBDasm.Core.Test
         public void Disassembly_And_Reassembly_Matches_Original_Rom()
         {
             var testRoms = Directory.GetFiles(TestRomPath, "*.*").Where(filename => filename.EndsWith(".gb") || filename.EndsWith(".gbc"));
-            foreach (var testRom in testRoms)
-            {
-                TestRom(testRom);
-            }
+            Parallel.ForEach(testRoms, (rom) => TestRom(rom));
         }
 
         /// <summary>
