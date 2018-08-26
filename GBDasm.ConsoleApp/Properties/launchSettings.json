@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "GBDasm.ConsoleApp": {
+      "commandName": "Project",
+      "commandLineArgs": "roms\\Tetris.gb"
+    }
+  }
+}
