@@ -24,4 +24,31 @@
     <ProjectReference Include="..\GBDasm.Core\GBDasm.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="roms\homebrew-test-rom.gb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="roms\Link%27s Awakening DX.gbc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="roms\Link%27s Awakening.gb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="roms\Pokemon Blue.gb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="roms\Pokemon Silver.gbc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="roms\Super Mario Land 2.gb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="roms\Super Mario Land.gb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="roms\Tetris.gb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
