@@ -7,4 +7,4 @@ install:
 
 script:
  - dotnet build
- - dotnet test GBDasm.Core.Test/GBDasm.Core.Test.csproj
+ - dotnet test GBDasm.Core.Test/GBDasm.Core.Test.csproj --filter TestCategory!=Integration
