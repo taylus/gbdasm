@@ -65,8 +65,8 @@ namespace GBDasm.Core.Test
             }
             catch (Win32Exception ex)
             {
-                //I dunno what kind of exception this throws on other platforms but this project is pretty Windows-centric anyway
-                if (ex.Message.Contains("cannot find the file specified"))
+                if (ex.Message.Contains("cannot find the file specified") || 
+                    ex.Message.Contains("No such file or directory"))
                     Assert.Fail("Unable to find RGBDS (is it installed and in your PATH?)");
                 else
                     throw;
