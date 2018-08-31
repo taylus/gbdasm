@@ -52,26 +52,5 @@ namespace GBDasm.Core
             if (bankNumber < NumberOfBanks) throw new ArgumentException("Bank number exceeds number of banks in ROM.", nameof(bankNumber));
             return new ArraySegment<byte>(Data, bankNumber * BankSize, BankSize);
         }
-
-        /// <summary>
-        /// Prints the first N bytes of the ROM to the console.
-        /// </summary>
-        public void HexDump(int bytesPerLine = 16, int? stopAfterBytes = null)
-        {
-            HexDump(Data, bytesPerLine, stopAfterBytes);
-        }
-
-        /// <summary>
-        /// Prints the first N bytes of the given buffer to the console.
-        /// </summary>
-        private static void HexDump(byte[] bytes, int bytesPerLine = 16, int? stopAfterBytes = null)
-        {
-            int length = stopAfterBytes ?? bytes.Length;
-            for (int i = 0; i < length; i++)
-            {
-                Console.Write("{0:X2} ", bytes[i]);
-                if (i % bytesPerLine == bytesPerLine - 1) Console.WriteLine();
-            }
-        }
     }
 }
