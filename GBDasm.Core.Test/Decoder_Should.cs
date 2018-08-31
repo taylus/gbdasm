@@ -1255,7 +1255,1529 @@ namespace GBDasm.Core.Test
             Assert.AreEqual("rlc c", decoder.Decode(new byte[] { 0xCB, 0x01 }, out int instructionLength));
         }
 
-        //TODO: remaining CB instruction tests
+        [TestMethod]
+        public void Decode_0xCB_0x02_To_Rotate_D_Left_With_Carry()
+        {
+            Assert.AreEqual("rlc d", decoder.Decode(new byte[] { 0xCB, 0x02 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x03_To_Rotate_E_Left_With_Carry()
+        {
+            Assert.AreEqual("rlc e", decoder.Decode(new byte[] { 0xCB, 0x03 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x04_To_Rotate_H_Left_With_Carry()
+        {
+            Assert.AreEqual("rlc h", decoder.Decode(new byte[] { 0xCB, 0x04 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x05_To_Rotate_L_Left_With_Carry()
+        {
+            Assert.AreEqual("rlc l", decoder.Decode(new byte[] { 0xCB, 0x05 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x06_To_Rotate_Address_Pointed_To_By_HL_Left_With_Carry()
+        {
+            Assert.AreEqual("rlc [hl]", decoder.Decode(new byte[] { 0xCB, 0x06 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x07_To_Rotate_A_Left_With_Carry()
+        {
+            Assert.AreEqual("rlc a", decoder.Decode(new byte[] { 0xCB, 0x07 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x08_To_Rotate_B_Right_With_Carry()
+        {
+            Assert.AreEqual("rrc b", decoder.Decode(new byte[] { 0xCB, 0x08 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x09_To_Rotate_C_Right_With_Carry()
+        {
+            Assert.AreEqual("rrc c", decoder.Decode(new byte[] { 0xCB, 0x09 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x0A_To_Rotate_D_Right_With_Carry()
+        {
+            Assert.AreEqual("rrc d", decoder.Decode(new byte[] { 0xCB, 0x0A }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x0B_To_Rotate_E_Right_With_Carry()
+        {
+            Assert.AreEqual("rrc e", decoder.Decode(new byte[] { 0xCB, 0x0B }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x0C_To_Rotate_H_Right_With_Carry()
+        {
+            Assert.AreEqual("rrc h", decoder.Decode(new byte[] { 0xCB, 0x0C }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x0D_To_Rotate_L_Right_With_Carry()
+        {
+            Assert.AreEqual("rrc l", decoder.Decode(new byte[] { 0xCB, 0x0D }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x0E_To_Rotate_Address_Pointed_To_By_HL_Right_With_Carry()
+        {
+            Assert.AreEqual("rrc [hl]", decoder.Decode(new byte[] { 0xCB, 0x0E }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x0F_To_Rotate_A_Right_With_Carry()
+        {
+            Assert.AreEqual("rrc a", decoder.Decode(new byte[] { 0xCB, 0x0F }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x10_To_Rotate_B_Left()
+        {
+            Assert.AreEqual("rl b", decoder.Decode(new byte[] { 0xCB, 0x10 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x11_To_Rotate_C_Left()
+        {
+            Assert.AreEqual("rl c", decoder.Decode(new byte[] { 0xCB, 0x11 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x12_To_Rotate_D_Left()
+        {
+            Assert.AreEqual("rl d", decoder.Decode(new byte[] { 0xCB, 0x12 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x13_To_Rotate_E_Left()
+        {
+            Assert.AreEqual("rl e", decoder.Decode(new byte[] { 0xCB, 0x13 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x14_To_Rotate_H_Left()
+        {
+            Assert.AreEqual("rl h", decoder.Decode(new byte[] { 0xCB, 0x14 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x15_To_Rotate_L_Left()
+        {
+            Assert.AreEqual("rl l", decoder.Decode(new byte[] { 0xCB, 0x15 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x16_To_Rotate_Address_Pointed_To_By_HL_Left()
+        {
+            Assert.AreEqual("rl [hl]", decoder.Decode(new byte[] { 0xCB, 0x16 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x17_To_Rotate_A_Left()
+        {
+            Assert.AreEqual("rl a", decoder.Decode(new byte[] { 0xCB, 0x17 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x18_To_Rotate_B_Right()
+        {
+            Assert.AreEqual("rr b", decoder.Decode(new byte[] { 0xCB, 0x18 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x19_To_Rotate_C_Right()
+        {
+            Assert.AreEqual("rr c", decoder.Decode(new byte[] { 0xCB, 0x19 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x1A_To_Rotate_D_Right()
+        {
+            Assert.AreEqual("rr d", decoder.Decode(new byte[] { 0xCB, 0x1A }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x1B_To_Rotate_E_Right()
+        {
+            Assert.AreEqual("rr e", decoder.Decode(new byte[] { 0xCB, 0x1B }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x1C_To_Rotate_H_Right()
+        {
+            Assert.AreEqual("rr h", decoder.Decode(new byte[] { 0xCB, 0x1C }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x1D_To_Rotate_L_Right()
+        {
+            Assert.AreEqual("rr l", decoder.Decode(new byte[] { 0xCB, 0x1D }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x1E_To_Rotate_Address_Pointed_To_By_HL_Right()
+        {
+            Assert.AreEqual("rr [hl]", decoder.Decode(new byte[] { 0xCB, 0x1E }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x1F_To_Rotate_A_Right()
+        {
+            Assert.AreEqual("rr a", decoder.Decode(new byte[] { 0xCB, 0x1F }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x20_To_Arithmetic_Shift_Left_B()
+        {
+            Assert.AreEqual("sla b", decoder.Decode(new byte[] { 0xCB, 0x20 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x21_To_Arithmetic_Shift_Left_C()
+        {
+            Assert.AreEqual("sla c", decoder.Decode(new byte[] { 0xCB, 0x21 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x22_To_Arithmetic_Shift_Left_D()
+        {
+            Assert.AreEqual("sla d", decoder.Decode(new byte[] { 0xCB, 0x22 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x23_To_Arithmetic_Shift_Left_E()
+        {
+            Assert.AreEqual("sla e", decoder.Decode(new byte[] { 0xCB, 0x23 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x24_To_Arithmetic_Shift_Left_H()
+        {
+            Assert.AreEqual("sla h", decoder.Decode(new byte[] { 0xCB, 0x24 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x25_To_Arithmetic_Shift_Left_L()
+        {
+            Assert.AreEqual("sla l", decoder.Decode(new byte[] { 0xCB, 0x25 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x26_To_Arithmetic_Shift_Left_Address_Pointed_To_By_HL()
+        {
+            Assert.AreEqual("sla [hl]", decoder.Decode(new byte[] { 0xCB, 0x26 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x27_To_Arithmetic_Shift_Left_A()
+        {
+            Assert.AreEqual("sla a", decoder.Decode(new byte[] { 0xCB, 0x27 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x28_To_Arithmetic_Shift_Right_B()
+        {
+            Assert.AreEqual("sra b", decoder.Decode(new byte[] { 0xCB, 0x28 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x29_To_Arithmetic_Shift_Right_C()
+        {
+            Assert.AreEqual("sra c", decoder.Decode(new byte[] { 0xCB, 0x29 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x2A_To_Arithmetic_Shift_Right_D()
+        {
+            Assert.AreEqual("sra d", decoder.Decode(new byte[] { 0xCB, 0x2A }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x2B_To_Arithmetic_Shift_Right_E()
+        {
+            Assert.AreEqual("sra e", decoder.Decode(new byte[] { 0xCB, 0x2B }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x2C_To_Arithmetic_Shift_Right_H()
+        {
+            Assert.AreEqual("sra h", decoder.Decode(new byte[] { 0xCB, 0x2C }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x2D_To_Arithmetic_Shift_Right_L()
+        {
+            Assert.AreEqual("sra l", decoder.Decode(new byte[] { 0xCB, 0x2D }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x2E_To_Arithmetic_Shift_Right_Address_Pointed_To_By_HL()
+        {
+            Assert.AreEqual("sra [hl]", decoder.Decode(new byte[] { 0xCB, 0x2E }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x2F_To_Arithmetic_Shift_Right_A()
+        {
+            Assert.AreEqual("sra a", decoder.Decode(new byte[] { 0xCB, 0x2F }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x30_To_Swap_Nybbles_Of_B()
+        {
+            Assert.AreEqual("swap b", decoder.Decode(new byte[] { 0xCB, 0x30 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x31_To_Swap_Nybbles_Of_C()
+        {
+            Assert.AreEqual("swap c", decoder.Decode(new byte[] { 0xCB, 0x31 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x32_To_Swap_Nybbles_Of_D()
+        {
+            Assert.AreEqual("swap d", decoder.Decode(new byte[] { 0xCB, 0x32 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x33_To_Swap_Nybbles_Of_E()
+        {
+            Assert.AreEqual("swap e", decoder.Decode(new byte[] { 0xCB, 0x33 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x34_To_Swap_Nybbles_Of_H()
+        {
+            Assert.AreEqual("swap h", decoder.Decode(new byte[] { 0xCB, 0x34 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x35_To_Swap_Nybbles_Of_L()
+        {
+            Assert.AreEqual("swap l", decoder.Decode(new byte[] { 0xCB, 0x35 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x36_To_Swap_Nybbles_Of_Address_Pointed_To_By_HL()
+        {
+            Assert.AreEqual("swap [hl]", decoder.Decode(new byte[] { 0xCB, 0x36 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x37_To_Swap_Nybbles_Of_A()
+        {
+            Assert.AreEqual("swap a", decoder.Decode(new byte[] { 0xCB, 0x37 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x38_To_Logical_Shift_Right_B()
+        {
+            Assert.AreEqual("srl b", decoder.Decode(new byte[] { 0xCB, 0x38 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x39_To_Logical_Shift_Right_C()
+        {
+            Assert.AreEqual("srl c", decoder.Decode(new byte[] { 0xCB, 0x39 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x3A_To_Logical_Shift_Right_D()
+        {
+            Assert.AreEqual("srl d", decoder.Decode(new byte[] { 0xCB, 0x3A }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x3B_To_Logical_Shift_Right_E()
+        {
+            Assert.AreEqual("srl e", decoder.Decode(new byte[] { 0xCB, 0x3B }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x3C_To_Logical_Shift_Right_H()
+        {
+            Assert.AreEqual("srl h", decoder.Decode(new byte[] { 0xCB, 0x3C }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x3D_To_Logical_Shift_Right_L()
+        {
+            Assert.AreEqual("srl l", decoder.Decode(new byte[] { 0xCB, 0x3D }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x3E_To_Logical_Shift_Right_Address_Pointed_To_By_HL()
+        {
+            Assert.AreEqual("srl [hl]", decoder.Decode(new byte[] { 0xCB, 0x3E }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x3F_To_Logical_Shift_Right_A()
+        {
+            Assert.AreEqual("srl a", decoder.Decode(new byte[] { 0xCB, 0x3F }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x40_To_Test_Bit_0_Of_B_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 0, b", decoder.Decode(new byte[] { 0xCB, 0x40 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x41_To_Test_Bit_0_Of_C_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 0, c", decoder.Decode(new byte[] { 0xCB, 0x41 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x42_To_Test_Bit_0_Of_D_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 0, d", decoder.Decode(new byte[] { 0xCB, 0x42 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x43_To_Test_Bit_0_Of_E_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 0, e", decoder.Decode(new byte[] { 0xCB, 0x43 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x44_To_Test_Bit_0_Of_H_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 0, h", decoder.Decode(new byte[] { 0xCB, 0x44 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x45_To_Test_Bit_0_Of_L_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 0, l", decoder.Decode(new byte[] { 0xCB, 0x45 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x46_To_Test_Bit_0_Of_Address_Pointed_To_By_HL_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 0, [hl]", decoder.Decode(new byte[] { 0xCB, 0x46 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x47_To_Test_Bit_0_Of_A_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 0, a", decoder.Decode(new byte[] { 0xCB, 0x47 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x48_To_Test_Bit_1_Of_B_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 1, b", decoder.Decode(new byte[] { 0xCB, 0x48 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x49_To_Test_Bit_1_Of_C_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 1, c", decoder.Decode(new byte[] { 0xCB, 0x49 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x4A_To_Test_Bit_1_Of_D_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 1, d", decoder.Decode(new byte[] { 0xCB, 0x4A }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x4B_To_Test_Bit_1_Of_E_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 1, e", decoder.Decode(new byte[] { 0xCB, 0x4B }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x4C_To_Test_Bit_1_Of_H_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 1, h", decoder.Decode(new byte[] { 0xCB, 0x4C }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x4D_To_Test_Bit_1_Of_L_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 1, l", decoder.Decode(new byte[] { 0xCB, 0x4D }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x4E_To_Test_Bit_1_Of_Address_Pointed_To_By_HL_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 1, [hl]", decoder.Decode(new byte[] { 0xCB, 0x4E }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x4F_To_Test_Bit_1_Of_A_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 1, a", decoder.Decode(new byte[] { 0xCB, 0x4F }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x50_To_Test_Bit_2_Of_B_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 2, b", decoder.Decode(new byte[] { 0xCB, 0x50 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x51_To_Test_Bit_2_Of_C_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 2, c", decoder.Decode(new byte[] { 0xCB, 0x51 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x52_To_Test_Bit_2_Of_D_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 2, d", decoder.Decode(new byte[] { 0xCB, 0x52 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x53_To_Test_Bit_2_Of_E_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 2, e", decoder.Decode(new byte[] { 0xCB, 0x53 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x54_To_Test_Bit_2_Of_H_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 2, h", decoder.Decode(new byte[] { 0xCB, 0x54 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x55_To_Test_Bit_2_Of_L_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 2, l", decoder.Decode(new byte[] { 0xCB, 0x55 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x56_To_Test_Bit_2_Of_Address_Pointed_To_By_HL_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 2, [hl]", decoder.Decode(new byte[] { 0xCB, 0x56 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x57_To_Test_Bit_2_Of_A_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 2, a", decoder.Decode(new byte[] { 0xCB, 0x57 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x58_To_Test_Bit_3_Of_B_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 3, b", decoder.Decode(new byte[] { 0xCB, 0x58 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x59_To_Test_Bit_3_Of_C_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 3, c", decoder.Decode(new byte[] { 0xCB, 0x59 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x5A_To_Test_Bit_3_Of_D_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 3, d", decoder.Decode(new byte[] { 0xCB, 0x5A }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x5B_To_Test_Bit_3_Of_E_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 3, e", decoder.Decode(new byte[] { 0xCB, 0x5B }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x5C_To_Test_Bit_3_Of_H_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 3, h", decoder.Decode(new byte[] { 0xCB, 0x5C }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x5D_To_Test_Bit_3_Of_L_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 3, l", decoder.Decode(new byte[] { 0xCB, 0x5D }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x5E_To_Test_Bit_3_Of_Address_Pointed_To_By_HL_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 3, [hl]", decoder.Decode(new byte[] { 0xCB, 0x5E }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x5F_To_Test_Bit_3_Of_A_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 3, a", decoder.Decode(new byte[] { 0xCB, 0x5F }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x60_To_Test_Bit_4_Of_B_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 4, b", decoder.Decode(new byte[] { 0xCB, 0x60 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x61_To_Test_Bit_4_Of_C_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 4, c", decoder.Decode(new byte[] { 0xCB, 0x61 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x62_To_Test_Bit_4_Of_D_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 4, d", decoder.Decode(new byte[] { 0xCB, 0x62 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x63_To_Test_Bit_4_Of_E_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 4, e", decoder.Decode(new byte[] { 0xCB, 0x63 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x64_To_Test_Bit_4_Of_H_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 4, h", decoder.Decode(new byte[] { 0xCB, 0x64 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x65_To_Test_Bit_4_Of_L_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 4, l", decoder.Decode(new byte[] { 0xCB, 0x65 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x66_To_Test_Bit_4_Of_Address_Pointed_To_By_HL_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 4, [hl]", decoder.Decode(new byte[] { 0xCB, 0x66 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x67_To_Test_Bit_4_Of_A_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 4, a", decoder.Decode(new byte[] { 0xCB, 0x67 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x68_To_Test_Bit_5_Of_B_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 5, b", decoder.Decode(new byte[] { 0xCB, 0x68 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x69_To_Test_Bit_5_Of_C_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 5, c", decoder.Decode(new byte[] { 0xCB, 0x69 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x6A_To_Test_Bit_5_Of_D_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 5, d", decoder.Decode(new byte[] { 0xCB, 0x6A }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x6B_To_Test_Bit_5_Of_E_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 5, e", decoder.Decode(new byte[] { 0xCB, 0x6B }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x6C_To_Test_Bit_5_Of_H_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 5, h", decoder.Decode(new byte[] { 0xCB, 0x6C }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x6D_To_Test_Bit_5_Of_L_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 5, l", decoder.Decode(new byte[] { 0xCB, 0x6D }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x6E_To_Test_Bit_5_Of_Address_Pointed_To_By_HL_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 5, [hl]", decoder.Decode(new byte[] { 0xCB, 0x6E }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x6F_To_Test_Bit_5_Of_A_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 5, a", decoder.Decode(new byte[] { 0xCB, 0x6F }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x70_To_Test_Bit_6_Of_B_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 6, b", decoder.Decode(new byte[] { 0xCB, 0x70 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x71_To_Test_Bit_6_Of_C_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 6, c", decoder.Decode(new byte[] { 0xCB, 0x71 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x72_To_Test_Bit_6_Of_D_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 6, d", decoder.Decode(new byte[] { 0xCB, 0x72 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x73_To_Test_Bit_6_Of_E_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 6, e", decoder.Decode(new byte[] { 0xCB, 0x73 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x74_To_Test_Bit_6_Of_H_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 6, h", decoder.Decode(new byte[] { 0xCB, 0x74 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x75_To_Test_Bit_6_Of_L_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 6, l", decoder.Decode(new byte[] { 0xCB, 0x75 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x76_To_Test_Bit_6_Of_Address_Pointed_To_By_HL_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 6, [hl]", decoder.Decode(new byte[] { 0xCB, 0x76 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x77_To_Test_Bit_6_Of_A_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 6, a", decoder.Decode(new byte[] { 0xCB, 0x77 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x78_To_Test_Bit_7_Of_B_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 7, b", decoder.Decode(new byte[] { 0xCB, 0x78 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x79_To_Test_Bit_7_Of_C_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 7, c", decoder.Decode(new byte[] { 0xCB, 0x79 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x7A_To_Test_Bit_7_Of_D_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 7, d", decoder.Decode(new byte[] { 0xCB, 0x7A }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x7B_To_Test_Bit_7_Of_E_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 7, e", decoder.Decode(new byte[] { 0xCB, 0x7B }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x7C_To_Test_Bit_7_Of_H_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 7, h", decoder.Decode(new byte[] { 0xCB, 0x7C }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x7D_To_Test_Bit_7_Of_L_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 7, l", decoder.Decode(new byte[] { 0xCB, 0x7D }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x7E_To_Test_Bit_7_Of_Address_Pointed_To_By_HL_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 7, [hl]", decoder.Decode(new byte[] { 0xCB, 0x7E }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x7F_To_Test_Bit_7_Of_A_And_Set_Zero_Flag_If_Bit_Not_Set()
+        {
+            Assert.AreEqual("bit 7, a", decoder.Decode(new byte[] { 0xCB, 0x7F }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x80_To_Reset_Bit_0_Of_B()
+        {
+            Assert.AreEqual("res 0, b", decoder.Decode(new byte[] { 0xCB, 0x80 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x81_To_Reset_Bit_0_Of_C()
+        {
+            Assert.AreEqual("res 0, c", decoder.Decode(new byte[] { 0xCB, 0x81 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x82_To_Reset_Bit_0_Of_D()
+        {
+            Assert.AreEqual("res 0, d", decoder.Decode(new byte[] { 0xCB, 0x82 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x83_To_Reset_Bit_0_Of_E()
+        {
+            Assert.AreEqual("res 0, e", decoder.Decode(new byte[] { 0xCB, 0x83 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x84_To_Reset_Bit_0_Of_H()
+        {
+            Assert.AreEqual("res 0, h", decoder.Decode(new byte[] { 0xCB, 0x84 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x85_To_Reset_Bit_0_Of_L()
+        {
+            Assert.AreEqual("res 0, l", decoder.Decode(new byte[] { 0xCB, 0x85 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x86_To_Reset_Bit_0_Of_Address_Pointed_To_By_HL()
+        {
+            Assert.AreEqual("res 0, [hl]", decoder.Decode(new byte[] { 0xCB, 0x86 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x87_To_Reset_Bit_0_Of_A()
+        {
+            Assert.AreEqual("res 0, a", decoder.Decode(new byte[] { 0xCB, 0x87 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x88_To_Reset_Bit_1_Of_B()
+        {
+            Assert.AreEqual("res 1, b", decoder.Decode(new byte[] { 0xCB, 0x88 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x89_To_Reset_Bit_1_Of_C()
+        {
+            Assert.AreEqual("res 1, c", decoder.Decode(new byte[] { 0xCB, 0x89 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x8A_To_Reset_Bit_1_Of_D()
+        {
+            Assert.AreEqual("res 1, d", decoder.Decode(new byte[] { 0xCB, 0x8A }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x8B_To_Reset_Bit_1_Of_E()
+        {
+            Assert.AreEqual("res 1, e", decoder.Decode(new byte[] { 0xCB, 0x8B }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x8C_To_Reset_Bit_1_Of_H()
+        {
+            Assert.AreEqual("res 1, h", decoder.Decode(new byte[] { 0xCB, 0x8C }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x8D_To_Reset_Bit_1_Of_L()
+        {
+            Assert.AreEqual("res 1, l", decoder.Decode(new byte[] { 0xCB, 0x8D }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x8E_To_Reset_But_1_Of_Address_Pointed_To_By_HL()
+        {
+            Assert.AreEqual("res 1, [hl]", decoder.Decode(new byte[] { 0xCB, 0x8E }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x8F_To_Reset_Bit_1_Of_A()
+        {
+            Assert.AreEqual("res 1, a", decoder.Decode(new byte[] { 0xCB, 0x8F }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x90_To_Reset_Bit_2_Of_B()
+        {
+            Assert.AreEqual("res 2, b", decoder.Decode(new byte[] { 0xCB, 0x90 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x91_To_Reset_Bit_2_Of_C()
+        {
+            Assert.AreEqual("res 2, c", decoder.Decode(new byte[] { 0xCB, 0x91 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x92_To_Reset_Bit_2_Of_D()
+        {
+            Assert.AreEqual("res 2, d", decoder.Decode(new byte[] { 0xCB, 0x92 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x93_To_Reset_Bit_2_Of_E()
+        {
+            Assert.AreEqual("res 2, e", decoder.Decode(new byte[] { 0xCB, 0x93 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x94_To_Reset_Bit_2_Of_H()
+        {
+            Assert.AreEqual("res 2, h", decoder.Decode(new byte[] { 0xCB, 0x94 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x95_To_Reset_Bit_2_Of_L()
+        {
+            Assert.AreEqual("res 2, l", decoder.Decode(new byte[] { 0xCB, 0x95 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x96_To_Reset_Bit_2_Of_Address_Pointed_To_By_HL()
+        {
+            Assert.AreEqual("res 2, [hl]", decoder.Decode(new byte[] { 0xCB, 0x96 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x97_To_Reset_Bit_2_Of_A()
+        {
+            Assert.AreEqual("res 2, a", decoder.Decode(new byte[] { 0xCB, 0x97 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x98_To_Reset_Bit_3_Of_B()
+        {
+            Assert.AreEqual("res 3, b", decoder.Decode(new byte[] { 0xCB, 0x98 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x99_To_Reset_Bit_3_Of_C()
+        {
+            Assert.AreEqual("res 3, c", decoder.Decode(new byte[] { 0xCB, 0x99 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x9A_To_Reset_Bit_3_Of_D()
+        {
+            Assert.AreEqual("res 3, d", decoder.Decode(new byte[] { 0xCB, 0x9A }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x9B_To_Reset_Bit_3_Of_E()
+        {
+            Assert.AreEqual("res 3, e", decoder.Decode(new byte[] { 0xCB, 0x9B }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x9C_To_Reset_Bit_3_Of_H()
+        {
+            Assert.AreEqual("res 3, h", decoder.Decode(new byte[] { 0xCB, 0x9C }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x9D_To_Reset_Bit_3_Of_L()
+        {
+            Assert.AreEqual("res 3, l", decoder.Decode(new byte[] { 0xCB, 0x9D }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x9E_To_Reset_Bit_3_Of_Address_Pointed_To_By_HL()
+        {
+            Assert.AreEqual("res 3, [hl]", decoder.Decode(new byte[] { 0xCB, 0x9E }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0x9F_To_Reset_Bit_3_Of_A()
+        {
+            Assert.AreEqual("res 3, a", decoder.Decode(new byte[] { 0xCB, 0x9F }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xA0_To_Reset_Bit_4_Of_B()
+        {
+            Assert.AreEqual("res 4, b", decoder.Decode(new byte[] { 0xCB, 0xA0 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xA1_To_Reset_Bit_4_Of_C()
+        {
+            Assert.AreEqual("res 4, c", decoder.Decode(new byte[] { 0xCB, 0xA1 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xA2_To_Reset_Bit_4_Of_D()
+        {
+            Assert.AreEqual("res 4, d", decoder.Decode(new byte[] { 0xCB, 0xA2 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xA3_To_Reset_Bit_4_Of_E()
+        {
+            Assert.AreEqual("res 4, e", decoder.Decode(new byte[] { 0xCB, 0xA3 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xA4_To_Reset_Bit_4_Of_H()
+        {
+            Assert.AreEqual("res 4, h", decoder.Decode(new byte[] { 0xCB, 0xA4 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xA5_To_Reset_Bit_4_Of_L()
+        {
+            Assert.AreEqual("res 4, l", decoder.Decode(new byte[] { 0xCB, 0xA5 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xA6_To_Reset_Bit_4_Of_Address_Pointed_To_By_HL()
+        {
+            Assert.AreEqual("res 4, [hl]", decoder.Decode(new byte[] { 0xCB, 0xA6 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xA7_To_Reset_Bit_4_Of_A()
+        {
+            Assert.AreEqual("res 4, a", decoder.Decode(new byte[] { 0xCB, 0xA7 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xA8_To_Reset_Bit_5_Of_B()
+        {
+            Assert.AreEqual("res 5, b", decoder.Decode(new byte[] { 0xCB, 0xA8 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xA9_To_Reset_Bit_5_Of_C()
+        {
+            Assert.AreEqual("res 5, c", decoder.Decode(new byte[] { 0xCB, 0xA9 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xAA_To_Reset_Bit_5_Of_D()
+        {
+            Assert.AreEqual("res 5, d", decoder.Decode(new byte[] { 0xCB, 0xAA }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xAB_To_Reset_Bit_5_Of_E()
+        {
+            Assert.AreEqual("res 5, e", decoder.Decode(new byte[] { 0xCB, 0xAB }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xAC_To_Reset_Bit_5_Of_H()
+        {
+            Assert.AreEqual("res 5, h", decoder.Decode(new byte[] { 0xCB, 0xAC }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xAD_To_Reset_Bit_5_Of_L()
+        {
+            Assert.AreEqual("res 5, l", decoder.Decode(new byte[] { 0xCB, 0xAD }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xAE_To_Reset_But_5_Of_Address_Pointed_To_By_HL()
+        {
+            Assert.AreEqual("res 5, [hl]", decoder.Decode(new byte[] { 0xCB, 0xAE }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xAF_To_Reset_Bit_5_Of_A()
+        {
+            Assert.AreEqual("res 5, a", decoder.Decode(new byte[] { 0xCB, 0xAF }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xB0_To_Reset_Bit_6_Of_B()
+        {
+            Assert.AreEqual("res 6, b", decoder.Decode(new byte[] { 0xCB, 0xB0 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xB1_To_Reset_Bit_6_Of_C()
+        {
+            Assert.AreEqual("res 6, c", decoder.Decode(new byte[] { 0xCB, 0xB1 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xB2_To_Reset_Bit_6_Of_D()
+        {
+            Assert.AreEqual("res 6, d", decoder.Decode(new byte[] { 0xCB, 0xB2 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xB3_To_Reset_Bit_6_Of_E()
+        {
+            Assert.AreEqual("res 6, e", decoder.Decode(new byte[] { 0xCB, 0xB3 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xB4_To_Reset_Bit_6_Of_H()
+        {
+            Assert.AreEqual("res 6, h", decoder.Decode(new byte[] { 0xCB, 0xB4 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xB5_To_Reset_Bit_6_Of_L()
+        {
+            Assert.AreEqual("res 6, l", decoder.Decode(new byte[] { 0xCB, 0xB5 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xB6_To_Reset_Bit_6_Of_Address_Pointed_To_By_HL()
+        {
+            Assert.AreEqual("res 6, [hl]", decoder.Decode(new byte[] { 0xCB, 0xB6 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xB7_To_Reset_Bit_6_Of_A()
+        {
+            Assert.AreEqual("res 6, a", decoder.Decode(new byte[] { 0xCB, 0xB7 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xB8_To_Reset_Bit_7_Of_B()
+        {
+            Assert.AreEqual("res 7, b", decoder.Decode(new byte[] { 0xCB, 0xB8 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xB9_To_Reset_Bit_7_Of_C()
+        {
+            Assert.AreEqual("res 7, c", decoder.Decode(new byte[] { 0xCB, 0xB9 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xBA_To_Reset_Bit_7_Of_D()
+        {
+            Assert.AreEqual("res 7, d", decoder.Decode(new byte[] { 0xCB, 0xBA }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xBB_To_Reset_Bit_7_Of_E()
+        {
+            Assert.AreEqual("res 7, e", decoder.Decode(new byte[] { 0xCB, 0xBB }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xBC_To_Reset_Bit_7_Of_H()
+        {
+            Assert.AreEqual("res 7, h", decoder.Decode(new byte[] { 0xCB, 0xBC }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xBD_To_Reset_Bit_7_Of_L()
+        {
+            Assert.AreEqual("res 7, l", decoder.Decode(new byte[] { 0xCB, 0xBD }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xBE_To_Reset_But_7_Of_Address_Pointed_To_By_HL()
+        {
+            Assert.AreEqual("res 7, [hl]", decoder.Decode(new byte[] { 0xCB, 0xBE }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xBF_To_Reset_Bit_7_Of_A()
+        {
+            Assert.AreEqual("res 7, a", decoder.Decode(new byte[] { 0xCB, 0xBF }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xC0_To_Set_Bit_0_Of_B()
+        {
+            Assert.AreEqual("set 0, b", decoder.Decode(new byte[] { 0xCB, 0xC0 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xC1_To_Set_Bit_0_Of_C()
+        {
+            Assert.AreEqual("set 0, c", decoder.Decode(new byte[] { 0xCB, 0xC1 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xC2_To_Set_Bit_0_Of_D()
+        {
+            Assert.AreEqual("set 0, d", decoder.Decode(new byte[] { 0xCB, 0xC2 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xC3_To_Set_Bit_0_Of_E()
+        {
+            Assert.AreEqual("set 0, e", decoder.Decode(new byte[] { 0xCB, 0xC3 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xC4_To_Set_Bit_0_Of_H()
+        {
+            Assert.AreEqual("set 0, h", decoder.Decode(new byte[] { 0xCB, 0xC4 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xC5_To_Set_Bit_0_Of_L()
+        {
+            Assert.AreEqual("set 0, l", decoder.Decode(new byte[] { 0xCB, 0xC5 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xC6_To_Set_Bit_0_Of_Address_Pointed_To_By_HL()
+        {
+            Assert.AreEqual("set 0, [hl]", decoder.Decode(new byte[] { 0xCB, 0xC6 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xC7_To_Set_Bit_0_Of_A()
+        {
+            Assert.AreEqual("set 0, a", decoder.Decode(new byte[] { 0xCB, 0xC7 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xC8_To_Set_Bit_0_Of_B()
+        {
+            Assert.AreEqual("set 1, b", decoder.Decode(new byte[] { 0xCB, 0xC8 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xC9_To_Set_Bit_0_Of_C()
+        {
+            Assert.AreEqual("set 1, c", decoder.Decode(new byte[] { 0xCB, 0xC9 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xCA_To_Set_Bit_1_Of_D()
+        {
+            Assert.AreEqual("set 1, d", decoder.Decode(new byte[] { 0xCB, 0xCA }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xCB_To_Set_Bit_1_Of_E()
+        {
+            Assert.AreEqual("set 1, e", decoder.Decode(new byte[] { 0xCB, 0xCB }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xCC_To_Set_Bit_1_Of_H()
+        {
+            Assert.AreEqual("set 1, h", decoder.Decode(new byte[] { 0xCB, 0xCC }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xCD_To_Set_Bit_1_Of_L()
+        {
+            Assert.AreEqual("set 1, l", decoder.Decode(new byte[] { 0xCB, 0xCD }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xCE_To_Set_Bit_1_Of_Address_Pointed_To_By_HL()
+        {
+            Assert.AreEqual("set 1, [hl]", decoder.Decode(new byte[] { 0xCB, 0xCE }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xCF_To_Set_Bit_1_Of_A()
+        {
+            Assert.AreEqual("set 1, a", decoder.Decode(new byte[] { 0xCB, 0xCF }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xD0_To_Set_Bit_2_Of_B()
+        {
+            Assert.AreEqual("set 2, b", decoder.Decode(new byte[] { 0xCB, 0xD0 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xD1_To_Set_Bit_2_Of_C()
+        {
+            Assert.AreEqual("set 2, c", decoder.Decode(new byte[] { 0xCB, 0xD1 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xD2_To_Set_Bit_2_Of_D()
+        {
+            Assert.AreEqual("set 2, d", decoder.Decode(new byte[] { 0xCB, 0xD2 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xD3_To_Set_Bit_2_Of_E()
+        {
+            Assert.AreEqual("set 2, e", decoder.Decode(new byte[] { 0xCB, 0xD3 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xD4_To_Set_Bit_2_Of_H()
+        {
+            Assert.AreEqual("set 2, h", decoder.Decode(new byte[] { 0xCB, 0xD4 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xD5_To_Set_Bit_2_Of_L()
+        {
+            Assert.AreEqual("set 2, l", decoder.Decode(new byte[] { 0xCB, 0xD5 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xD6_To_Set_Bit_2_Of_Address_Pointed_To_By_HL()
+        {
+            Assert.AreEqual("set 2, [hl]", decoder.Decode(new byte[] { 0xCB, 0xD6 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xD7_To_Set_Bit_2_Of_A()
+        {
+            Assert.AreEqual("set 2, a", decoder.Decode(new byte[] { 0xCB, 0xD7 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xD8_To_Set_Bit_3_Of_B()
+        {
+            Assert.AreEqual("set 3, b", decoder.Decode(new byte[] { 0xCB, 0xD8 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xD9_To_Set_Bit_3_Of_C()
+        {
+            Assert.AreEqual("set 3, c", decoder.Decode(new byte[] { 0xCB, 0xD9 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xDA_To_Set_Bit_3_Of_D()
+        {
+            Assert.AreEqual("set 3, d", decoder.Decode(new byte[] { 0xCB, 0xDA }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xDB_To_Set_Bit_3_Of_E()
+        {
+            Assert.AreEqual("set 3, e", decoder.Decode(new byte[] { 0xCB, 0xDB }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xDC_To_Set_Bit_3_Of_H()
+        {
+            Assert.AreEqual("set 3, h", decoder.Decode(new byte[] { 0xCB, 0xDC }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xDD_To_Set_Bit_3_Of_L()
+        {
+            Assert.AreEqual("set 3, l", decoder.Decode(new byte[] { 0xCB, 0xDD }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xDE_To_Set_Bit_3_Of_Address_Pointed_To_By_HL()
+        {
+            Assert.AreEqual("set 3, [hl]", decoder.Decode(new byte[] { 0xCB, 0xDE }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xDF_To_Set_Bit_3_Of_A()
+        {
+            Assert.AreEqual("set 3, a", decoder.Decode(new byte[] { 0xCB, 0xDF }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xE0_To_Set_Bit_4_Of_B()
+        {
+            Assert.AreEqual("set 4, b", decoder.Decode(new byte[] { 0xCB, 0xE0 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xE1_To_Set_Bit_4_Of_C()
+        {
+            Assert.AreEqual("set 4, c", decoder.Decode(new byte[] { 0xCB, 0xE1 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xE2_To_Set_Bit_4_Of_D()
+        {
+            Assert.AreEqual("set 4, d", decoder.Decode(new byte[] { 0xCB, 0xE2 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xE3_To_Set_Bit_4_Of_E()
+        {
+            Assert.AreEqual("set 4, e", decoder.Decode(new byte[] { 0xCB, 0xE3 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xE4_To_Set_Bit_4_Of_H()
+        {
+            Assert.AreEqual("set 4, h", decoder.Decode(new byte[] { 0xCB, 0xE4 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xE5_To_Set_Bit_4_Of_L()
+        {
+            Assert.AreEqual("set 4, l", decoder.Decode(new byte[] { 0xCB, 0xE5 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xE6_To_Set_Bit_4_Of_Address_Pointed_To_By_HL()
+        {
+            Assert.AreEqual("set 4, [hl]", decoder.Decode(new byte[] { 0xCB, 0xE6 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xE7_To_Set_Bit_4_Of_A()
+        {
+            Assert.AreEqual("set 4, a", decoder.Decode(new byte[] { 0xCB, 0xE7 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xE8_To_Set_Bit_5_Of_B()
+        {
+            Assert.AreEqual("set 5, b", decoder.Decode(new byte[] { 0xCB, 0xE8 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xE9_To_Set_Bit_5_Of_C()
+        {
+            Assert.AreEqual("set 5, c", decoder.Decode(new byte[] { 0xCB, 0xE9 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xEA_To_Set_Bit_5_Of_D()
+        {
+            Assert.AreEqual("set 5, d", decoder.Decode(new byte[] { 0xCB, 0xEA }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xEB_To_Set_Bit_5_Of_E()
+        {
+            Assert.AreEqual("set 5, e", decoder.Decode(new byte[] { 0xCB, 0xEB }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xEC_To_Set_Bit_5_Of_H()
+        {
+            Assert.AreEqual("set 5, h", decoder.Decode(new byte[] { 0xCB, 0xEC }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xED_To_Set_Bit_5_Of_L()
+        {
+            Assert.AreEqual("set 5, l", decoder.Decode(new byte[] { 0xCB, 0xED }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xEE_To_Set_Bit_5_Of_Address_Pointed_To_By_HL()
+        {
+            Assert.AreEqual("set 5, [hl]", decoder.Decode(new byte[] { 0xCB, 0xEE }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xEF_To_Set_Bit_5_Of_A()
+        {
+            Assert.AreEqual("set 5, a", decoder.Decode(new byte[] { 0xCB, 0xEF }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xF0_To_Set_Bit_6_Of_B()
+        {
+            Assert.AreEqual("set 6, b", decoder.Decode(new byte[] { 0xCB, 0xF0 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xF1_To_Set_Bit_6_Of_C()
+        {
+            Assert.AreEqual("set 6, c", decoder.Decode(new byte[] { 0xCB, 0xF1 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xF2_To_Set_Bit_6_Of_D()
+        {
+            Assert.AreEqual("set 6, d", decoder.Decode(new byte[] { 0xCB, 0xF2 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xF3_To_Set_Bit_6_Of_E()
+        {
+            Assert.AreEqual("set 6, e", decoder.Decode(new byte[] { 0xCB, 0xF3 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xF4_To_Set_Bit_6_Of_H()
+        {
+            Assert.AreEqual("set 6, h", decoder.Decode(new byte[] { 0xCB, 0xF4 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xF5_To_Set_Bit_6_Of_L()
+        {
+            Assert.AreEqual("set 6, l", decoder.Decode(new byte[] { 0xCB, 0xF5 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xF6_To_Set_Bit_6_Of_Address_Pointed_To_By_HL()
+        {
+            Assert.AreEqual("set 6, [hl]", decoder.Decode(new byte[] { 0xCB, 0xF6 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xF7_To_Set_Bit_6_Of_A()
+        {
+            Assert.AreEqual("set 6, a", decoder.Decode(new byte[] { 0xCB, 0xF7 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xF8_To_Set_Bit_7_Of_B()
+        {
+            Assert.AreEqual("set 7, b", decoder.Decode(new byte[] { 0xCB, 0xF8 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xF9_To_Set_Bit_7_Of_C()
+        {
+            Assert.AreEqual("set 7, c", decoder.Decode(new byte[] { 0xCB, 0xF9 }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xFA_To_Set_Bit_7_Of_D()
+        {
+            Assert.AreEqual("set 7, d", decoder.Decode(new byte[] { 0xCB, 0xFA }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xFB_To_Set_Bit_7_Of_E()
+        {
+            Assert.AreEqual("set 7, e", decoder.Decode(new byte[] { 0xCB, 0xFB }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xFC_To_Set_Bit_7_Of_H()
+        {
+            Assert.AreEqual("set 7, h", decoder.Decode(new byte[] { 0xCB, 0xFC }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xFD_To_Set_Bit_7_Of_L()
+        {
+            Assert.AreEqual("set 7, l", decoder.Decode(new byte[] { 0xCB, 0xFD }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xFE_To_Set_Bit_7_Of_Address_Pointed_To_By_HL()
+        {
+            Assert.AreEqual("set 7, [hl]", decoder.Decode(new byte[] { 0xCB, 0xFE }, out int instructionLength));
+        }
+
+        [TestMethod]
+        public void Decode_0xCB_0xFF_To_Set_Bit_7_Of_A()
+        {
+            Assert.AreEqual("set 7, a", decoder.Decode(new byte[] { 0xCB, 0xFF }, out int instructionLength));
+        }
 
         [TestMethod]
         public void Decode_0xCC_To_Call_Routine_At_16_Bit_Address_If_Last_Result_Was_Zero()
