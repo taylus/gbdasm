@@ -962,11 +962,12 @@ namespace GBDasm.Core
             //map cartridge-space addresses into the Game Boy's memory map
             //bank 0: fixed at $0000 - $3FFF
             //banks 1 - n: switchable at $4000 - $7FFF
-            bool bankZero = programCounter < RomFile.BankSize;
-            programCounter %= RomFile.BankSize;
-            if (!bankZero) programCounter += RomFile.BankSize;
+            int jumpInstructionAddress = programCounter - 2;
+            bool bankZero = jumpInstructionAddress < RomFile.BankSize;
+            jumpInstructionAddress %= RomFile.BankSize;
+            if (!bankZero) jumpInstructionAddress += RomFile.BankSize;
 
-            return programCounter + offset;
+            return jumpInstructionAddress + offset + 2;
         }
 
         /// <summary>
