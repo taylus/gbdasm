@@ -8,3 +8,5 @@ install:
 script:
  - dotnet build
  - dotnet test GBDasm.Core.Test/GBDasm.Core.Test.csproj --filter TestCategory!=Integration /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+ - dotnet tool install --global coveralls.net --version 1.0.0
+ - csmacnz.Coveralls.exe --opencover -i GBDasm.Core.Test/coverage.opencover.xml --useRelativePaths --commitId $TRAVIS_COMMIT --commitBranch $TRAVIS_BRANCH --commitAuthor "$REPO_COMMIT_AUTHOR" --commitEmail "$REPO_COMMIT_AUTHOR_EMAIL" --commitMessage "$REPO_COMMIT_MESSAGE" --jobId $TRAVIS_JOB_ID  --serviceName travis-ci
