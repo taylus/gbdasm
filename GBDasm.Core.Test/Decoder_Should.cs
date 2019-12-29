@@ -1196,7 +1196,7 @@ namespace GBDasm.Core.Test
         }
 
         [TestMethod]
-        public void Decode_0xC3_To_Absolute_Jump_To_16_Bit_Address_If_Last_Result_Was_Not_Zero()
+        public void Decode_0xC3_To_Absolute_Jump_To_16_Bit_Address()
         {
             Assert.AreEqual("jp $abcd", decoder.Decode(new byte[] { 0xC3, 0xCD, 0xAB }, out int instructionLength));
         }
