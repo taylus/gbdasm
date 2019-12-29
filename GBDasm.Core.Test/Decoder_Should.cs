@@ -3024,11 +3024,9 @@ namespace GBDasm.Core.Test
         }
 
         [TestMethod]
-        public void Decode_0xF2_As_Undefined_Opcode()
+        public void Decode_0xF2_To_Load_A_From_High_Memory_Address_Offset_By_C()
         {
-            var dasm = decoder.Decode(new byte[] { 0xF2 }, out int instructionLength);
-            Assert.IsTrue(dasm.StartsWith("db $f2"));
-            Assert.IsTrue(dasm.Contains("unknown instruction"));
+            Assert.AreEqual("ld a, [$ff00+c]", decoder.Decode(new byte[] { 0xF2 }, out int instructionLength));
         }
 
         [TestMethod]

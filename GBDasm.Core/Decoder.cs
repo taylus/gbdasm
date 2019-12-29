@@ -832,6 +832,9 @@ namespace GBDasm.Core
                 case 0xF1:
                     sb.AppendLine("pop af");
                     break;
+                case 0xF2:
+                    sb.AppendLine("ld a, [$ff00+c]");
+                    break;
                 case 0xF3:
                     sb.AppendLine("di");
                     break;
