@@ -8,11 +8,17 @@ namespace GBDasm.Core
     {
         public RomFile RomFile { get; private set; }
         public Decoder Decoder { get; private set; }
+        public int TargetLineWidth { get; private set; } = 40;
 
         public Disassembler(RomFile rom, Decoder decoder)
         {
             RomFile = rom;
             Decoder = decoder;
+        }
+
+        public Disassembler(RomFile rom, Decoder decoder, int targetLineWidth) : this(rom, decoder)
+        {
+            TargetLineWidth = targetLineWidth;
         }
 
         /// <summary>
@@ -36,7 +42,8 @@ namespace GBDasm.Core
                     {
                         var data = new ArraySegment<byte>(RomFile.Data, absoluteAddress, Math.Min(RomFile.BankSize, RomFile.Data.Length) - addressWithinBank);
                         string dasm = Decoder.Decode(data, out int instructionLength);
-                        sb.AppendLine($"{dasm} ;{absoluteAddress:x4}");
+                        string comment = $";${absoluteAddress:x4}";
+                        sb.AppendLine($"{dasm}{GetWhitespaceBetween(dasm, comment)}{comment}");
                         addressWithinBank += instructionLength - 1;
                     }
                 }
@@ -47,6 +54,13 @@ namespace GBDasm.Core
         public void Disassemble(string path)
         {
             File.WriteAllText(path, Disassemble());
+        }
+
+        private string GetWhitespaceBetween(string instruction, string comment)
+        {
+            int spaces = TargetLineWidth - instruction.Length - comment.Length;
+            if (spaces < 0) spaces = 0;
+            return new string(' ', spaces);
         }
     }
 }
