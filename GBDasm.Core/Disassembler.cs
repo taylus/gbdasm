@@ -36,7 +36,9 @@ namespace GBDasm.Core
                     if (RomFile.IsInHeader(absoluteAddress))
                     {
                         //don't decode the ROM header as instructions
-                        sb.AppendLine($"db ${RomFile.Data[absoluteAddress]:x2} ;{absoluteAddress:x4}");
+                        string db = $"db ${RomFile.Data[absoluteAddress]:x2}";
+                        string comment = $";${absoluteAddress:x4}";
+                        sb.AppendLine($"{db}{GetWhitespaceBetween(db, comment)}{comment}");
                     }
                     else
                     {

@@ -38,6 +38,7 @@ namespace GBDasm.Core
         public RomFile(string path)
         {
             Data = File.ReadAllBytes(path);
+            HasHeader = ShouldAssumeHeader(path);
         }
 
         /// <summary>
@@ -51,6 +52,12 @@ namespace GBDasm.Core
         {
             if (bankNumber < NumberOfBanks) throw new ArgumentException("Bank number exceeds number of banks in ROM.", nameof(bankNumber));
             return new ArraySegment<byte>(Data, bankNumber * BankSize, BankSize);
+        }
+
+        private bool ShouldAssumeHeader(string path)
+        {
+            string ext = Path.GetExtension(path);
+            return (ext == ".gb" || ext == ".gbc") && Data.Length > (Header.Offset + Header.Count);
         }
     }
 }
